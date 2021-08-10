@@ -5,6 +5,7 @@ import {
   DeliusUnicase_400Regular,
   DeliusUnicase_700Bold
 } from "@expo-google-fonts/delius-unicase";
+import { Game, Home } from "@screens";
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -14,7 +15,9 @@ export default function App() {
   if (!fontLoaded) return null;
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 25, fontFamily: "DeliusUnicase_400Regular" }}>Hello world</Text>
+      {/* <Text style={{ fontSize: 25, fontFamily: "DeliusUnicase_400Regular" }}>Hello world</Text> */}
+      <Game />
+      <Home />
     </View>
   );
 }
