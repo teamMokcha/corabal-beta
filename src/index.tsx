@@ -1,23 +1,55 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
-  DeliusUnicase_400Regular,
-  DeliusUnicase_700Bold
-} from "@expo-google-fonts/delius-unicase";
-import { Game, Home } from "@screens";
+  // NotoSansKR_100Thin,
+  NotoSansKR_300Light,
+  // NotoSansKR_400Regular,
+  NotoSansKR_500Medium,
+  NotoSansKR_700Bold
+  // NotoSansKR_900Black
+} from "@expo-google-fonts/noto-sans-kr";
+import { Text } from "@Components";
 
 export default function App() {
   const [fontLoaded] = useFonts({
-    DeliusUnicase_400Regular,
-    DeliusUnicase_700Bold
+    NotoSansKR_700Bold,
+    NotoSansKR_500Medium,
+    NotoSansKR_300Light
   });
-  if (!fontLoaded) return null;
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady && fontLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      {/* <Text style={{ fontSize: 25, fontFamily: "DeliusUnicase_400Regular" }}>Hello world</Text> */}
-      <Game />
-      <Home />
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <Text style={{ fontSize: 24 }} weight="500">
+        Head1 Font Style
+      </Text>
     </View>
   );
 }
@@ -25,7 +57,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center"
   }
