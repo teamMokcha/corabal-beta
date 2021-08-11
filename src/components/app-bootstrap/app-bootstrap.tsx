@@ -9,7 +9,8 @@ import {
   NotoSansKR_700Bold
   // NotoSansKR_900Black
 } from "@expo-google-fonts/noto-sans-kr";
-import { Login } from "@screens";
+// import { Login } from "@screens";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 
 type AppBootstrapProps = {
   children: ReactNode;
@@ -35,5 +36,22 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
     loadSplash();
   }, []);
 
-  return fontLoaded ? <>{children}</> : <Login />;
+  return fontLoaded ? (
+    <>{children}</>
+  ) : (
+    <ActivityIndicator
+      style={styles.container}
+      size="large"
+      color="#76A3FF
+    "
+    />
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
