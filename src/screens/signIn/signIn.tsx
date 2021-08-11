@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-import styles from "./home.styles";
-import style from "./home.styles";
+import styles from "./signIn.styles";
 
-export default function Home() {
+export default function SignIn() {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>Sign In</Text>
     </View>
   );
 }
