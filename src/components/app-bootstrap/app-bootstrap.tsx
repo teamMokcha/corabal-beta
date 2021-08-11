@@ -10,7 +10,7 @@ import {
   // NotoSansKR_900Black
 } from "@expo-google-fonts/noto-sans-kr";
 // import { Login } from "@screens";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 
 type AppBootstrapProps = {
   children: ReactNode;
