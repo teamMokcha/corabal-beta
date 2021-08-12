@@ -5,6 +5,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  scrollView: {
+    backgroundColor: "pink"
+  },
+  logo: {
+    height: 200,
+    width: 200
   }
 });
 

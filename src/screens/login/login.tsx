@@ -5,7 +5,7 @@ import styles from "./login.styles";
 export default function Login() {
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Text>Hello, This is Login page</Text>
     </View>
   );
 }
