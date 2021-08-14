@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
   logo: {
     height: 200,
     width: 200
+  },
+  button: {
+    marginTop: 20
   }
 });
 
