@@ -7,7 +7,11 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   scrollView: {
-    backgroundColor: "pink"
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "pink"
   },
   logo: {
     height: 200,
