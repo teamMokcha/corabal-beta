@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
-    color: "#ffff",
     lineHeight: 20.27
   }
 });

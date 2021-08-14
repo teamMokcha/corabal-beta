@@ -17,7 +17,7 @@ export default function Button({ title, style, ...props }: ButtonProps): ReactEl
         end={{ x: 1, y: 1 }}
         style={styles.buttonContainer}
       >
-        <Text style={styles.buttonText} weight="400">
+        <Text style={(styles.buttonText, { color: "#FFFFFF" })} weight="400" selectionColor="red">
           {title}
         </Text>
       </LinearGradient>

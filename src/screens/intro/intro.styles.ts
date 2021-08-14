@@ -8,16 +8,17 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "pink"
+    alignItems: "center"
   },
   logo: {
+    marginTop: 84,
     height: 200,
     width: 200
   },
-  button: {
+  buttonNomal: {
+    marginTop: 36
+  },
+  buttonGradient: {
     marginTop: 20
   }
 });
