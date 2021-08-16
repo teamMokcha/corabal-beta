@@ -9,18 +9,10 @@ type ButtonProps = {
 
 export default function ButtonNomal({ title, style, ...props }: ButtonProps): ReactElement {
   return (
-    <TouchableOpacity {...props} style={[buttonNomalStyles.border, styles.buttonContainer, style]}>
+    <TouchableOpacity {...props} style={[styles.buttonContainer, styles.buttonNomalBorder, style]}>
       <Text style={(styles.buttonText, { color: "#000000" })} weight="400">
         {title}
       </Text>
     </TouchableOpacity>
   );
 }
-
-const buttonNomalStyles = StyleSheet.create({
-  border: {
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "#E5E5E5"
-  }
-});
