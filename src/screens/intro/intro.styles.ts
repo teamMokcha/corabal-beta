@@ -16,10 +16,14 @@ const styles = StyleSheet.create({
     width: 200
   },
   buttonNomal: {
-    marginTop: 36
+    marginTop: 36,
+    width: 294,
+    height: 48
   },
   buttonGradient: {
-    marginTop: 20
+    marginTop: 20,
+    width: 294,
+    height: 48
   }
 });
 

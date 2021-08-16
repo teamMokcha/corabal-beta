@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 100,
     paddingTop: 14,
     paddingBottom: 14
   },

@@ -19,6 +19,7 @@ export default function ButtonNomal({ title, style, ...props }: ButtonProps): Re
 
 const buttonNomalStyles = StyleSheet.create({
   border: {
+    borderRadius: 100,
     borderWidth: 1,
     borderColor: "#E5E5E5"
   }
