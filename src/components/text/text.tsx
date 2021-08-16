@@ -2,7 +2,7 @@ import React, { ReactNode, ReactElement } from "react";
 import { Text as NativeText, TextProps as NativeTextProps } from "react-native";
 
 type TextProps = {
-  weight: "300" | "500" | "700";
+  weight: "300" | "400" | "500" | "700";
   children: ReactNode;
 } & NativeTextProps;
 
@@ -18,10 +18,12 @@ export default function Text({ children, style, weight, ...props }: TextProps): 
   if (weight === "500") {
     fontFamily = "NotoSansKR_500Medium";
   }
+  if (weight === "400") {
+    fontFamily = "NotoSansKR_400Regular";
+  }
   if (weight === "300") {
     fontFamily = "NotoSansKR_300Light";
   }
-
   return (
     <NativeText {...props} style={[{ fontFamily }, style]}>
       {children}

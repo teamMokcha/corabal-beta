@@ -5,7 +5,7 @@ import styles from "./signIn.styles";
 export default function SignIn() {
   return (
     <View style={styles.container}>
-      <Text>Sign In</Text>
+      <Text>Hi, This is Sign In page</Text>
     </View>
   );
 }
