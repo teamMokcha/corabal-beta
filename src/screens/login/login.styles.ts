@@ -5,6 +5,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  scrollView: {
+    flex: 1,
+    marginTop: 66
+  },
+  inputLabel: {
+    fontSize: 16,
+    lineHeight: 23.17,
+    color: "#000000"
+  },
+  inputText: {
+    alignItems: "center",
+    paddingBottom: 8,
+    width: 312,
+    borderBottomWidth: 1,
+    borderColor: "#000000"
   }
 });
 
