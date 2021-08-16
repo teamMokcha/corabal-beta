@@ -20,51 +20,53 @@ export default function Login(): ReactElement {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={(styles.inputLabel, { marginBottom: 10 })} weight="400">
-          e-mail
-        </Text>
-        <TextInput
-          style={styles.inputText}
-          placeholder="corabal@gmail.com"
-          autoCompleteType="email"
-          keyboardType="email-address"
-          returnKeyType="next"
-          onChangeText={value => {
-            setSignInFormInput("email", value);
-          }}
-          value={signInForm.email}
-          onSubmitEditing={() => {
-            passwordRef.current?.focus();
-          }}
-        />
-        <Text style={(styles.inputLabel, { marginTop: 41 })} weight="400">
-          password
-        </Text>
-        <TextInput
-          style={styles.inputText}
-          autoCompleteType="password"
-          keyboardType="visible-password"
-          returnKeyType="done"
-          secureTextEntry
-          ref={passwordRef}
-          onChangeText={value => {
-            setSignInFormInput("password", value);
-          }}
-          value={signInForm.password}
-        />
-        <Text
-          style={{
-            fontSize: 12,
-            lineHeight: 17.38,
-            color: "#565656",
-            marginTop: 4,
-            marginBottom: 43
-          }}
-          weight="400"
-        >
-          {`* 최소 8자리 이상의 길이로 입력해주세요 \n `}
-        </Text>
-        <ButtonNomal title="가입하기" />
+        <View style={styles.inputContainer}>
+          <Text style={(styles.inputLabel, { marginBottom: 10 })} weight="400">
+            e-mail
+          </Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder="corabal@gmail.com"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            returnKeyType="next"
+            onChangeText={value => {
+              setSignInFormInput("email", value);
+            }}
+            value={signInForm.email}
+            onSubmitEditing={() => {
+              passwordRef.current?.focus();
+            }}
+          />
+          <Text style={(styles.inputLabel, { marginTop: 41 })} weight="400">
+            password
+          </Text>
+          <TextInput
+            style={styles.inputText}
+            autoCompleteType="password"
+            keyboardType="visible-password"
+            returnKeyType="done"
+            secureTextEntry
+            ref={passwordRef}
+            onChangeText={value => {
+              setSignInFormInput("password", value);
+            }}
+            value={signInForm.password}
+          />
+          <Text
+            style={{
+              fontSize: 12,
+              lineHeight: 17.38,
+              color: "#565656",
+              marginTop: 4,
+              marginBottom: 43
+            }}
+            weight="400"
+          >
+            {`* 최소 8자리 이상의 길이로 입력해주세요 \n `}
+          </Text>
+        </View>
+        <ButtonNomal title="가입하기" style={{ width: 328, height: 48 }} />
       </ScrollView>
     </View>
   );

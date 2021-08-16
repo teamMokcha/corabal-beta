@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginTop: 66
+    // marginLeft: 16,
+    // marginRight: 12
+  },
+  inputContainer: {
+    paddingRight: 8,
+    paddingLeft: 8
   },
   inputLabel: {
     fontSize: 16,
@@ -18,7 +24,6 @@ const styles = StyleSheet.create({
   inputText: {
     alignItems: "center",
     paddingBottom: 8,
-    width: 312,
     borderBottomWidth: 1,
     borderColor: "#000000"
   }
