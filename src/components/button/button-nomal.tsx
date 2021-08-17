@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import Text from "../text/text";
 import styles from "./button.styles";
 

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    marginTop: 66
+    marginTop: 106
     // marginLeft: 16,
     // marginRight: 12
   },
