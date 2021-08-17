@@ -28,6 +28,14 @@ export default function Intro({ navigation }: NavigationProps): ReactElement {
             navigation.navigate("SignIn");
           }}
         />
+        {/* profile 화면 테스트용 21.08.17 수연 */}
+        <ButtonNomal
+          style={styles.buttonNomal}
+          title="프로필"
+          onPress={() => {
+            navigation.navigate("Profile");
+          }}
+        />
       </ScrollView>
     </View>
   );
