@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
   recordContent: {
     fontSize: 24
   },
+  catInTheCup: {
+    marginBottom: 10
+  },
+  callingCat: {
+    width: 100,
+    height: 32
+  },
   config: {
     flex: 1,
     justifyContent: "flex-start",
@@ -43,7 +50,8 @@ const styles = StyleSheet.create({
   },
   accountDeletion: {
     fontSize: 14,
-    color: "#F15F5F"
+    color: "#F15F5F",
+    marginTop: 30
   }
 });
 

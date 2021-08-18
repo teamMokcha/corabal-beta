@@ -1,9 +1,12 @@
 import React, { ReactElement } from "react";
 import { View, Image } from "react-native";
-import { Text } from "@Components";
+import { ButtonGradient, Text } from "@Components";
 import styles from "./profile.style";
+import { useState } from "react";
 
 export default function Profile(): ReactElement {
+  const [isShowingCat, setIsShowingCat] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.info}>
@@ -27,8 +30,14 @@ export default function Profile(): ReactElement {
         </View>
         <View style={styles.record}>
           <Text style={styles.recordTitle}>내 컵</Text>
-          <Image source={require("@assets/my-cup.png")} />
-          <Text style={styles.recordTitle}>힘주기 {"\n"} +10P</Text>
+          {isShowingCat ? (
+            <Image style={styles.catInTheCup} source={require("@assets/my-cup.png")} />
+          ) : null}
+          <ButtonGradient
+            onPress={() => setIsShowingCat(!isShowingCat)}
+            style={styles.callingCat}
+            title="고양이 부르기"
+          />
         </View>
       </View>
       <View style={styles.config}>
