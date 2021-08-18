@@ -8,7 +8,9 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderStyle: "solid"
   },
-  header: {},
+  header: {
+    marginLeft: 20
+  },
   text: {
     fontSize: 20
   },
@@ -17,9 +19,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   footer: {
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    flexDirection: "row"
+    flexDirection: "row",
+    marginTop: 20,
+    marginBottom: 30
   }
 });
 

@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#F15F5F",
     marginTop: 30
+  },
+  deleteButton: {
+    width: 100,
+    height: 30
   }
 });
 

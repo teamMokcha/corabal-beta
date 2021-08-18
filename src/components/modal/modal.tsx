@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { View } from "react-native";
 import { Text } from "@Components";
 import RNModal from "react-native-modal";
@@ -10,7 +10,7 @@ type ModalProps = {
   [x: string]: any;
 };
 
-export const Modal = ({ isVisible = false, children, ...props }: ModalProps): React.ReactNode => {
+export default function Modal({ isVisible = false, children, ...props }: ModalProps): ReactElement {
   return (
     <RNModal
       isVisible={isVisible}
@@ -23,7 +23,7 @@ export const Modal = ({ isVisible = false, children, ...props }: ModalProps): Re
       {children}
     </RNModal>
   );
-};
+}
 
 const ModalContainer = ({ children }: { children: React.ReactNode }) => (
   <View style={styles.container}>{children}</View>
