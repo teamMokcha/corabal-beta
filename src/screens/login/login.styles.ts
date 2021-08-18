@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginTop: 106
-    // marginLeft: 16,
-    // marginRight: 12
   },
   inputContainer: {
     paddingRight: 8,

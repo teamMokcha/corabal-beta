@@ -47,7 +47,7 @@ export default function Login(): ReactElement {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.inputContainer}>
-          <Text style={(styles.inputLabel, { marginBottom: 10 })} weight="400">
+          <Text style={(styles.inputLabel, { marginBottom: 15 })} weight="400">
             e-mail
           </Text>
           <TextInput
@@ -89,7 +89,7 @@ export default function Login(): ReactElement {
             }}
             weight="400"
           >
-            {`* 영문, 숫자, 특수문자 중 2종류 이상을 조합하여 최소 10자리 이상 \n  또는 3종류 이상을 조합하여 최소 8자리 이상으로 구성되어야 합니다. \n `}
+            {`* 영문, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요.\n `}
           </Text>
         </View>
         <ButtonNomal title="가입하기" style={{ width: 328, height: 48 }} />
