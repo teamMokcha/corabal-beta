@@ -1,11 +1,12 @@
 import React, { ReactElement } from "react";
 import { View, Image } from "react-native";
-import { ButtonGradient, Text } from "@Components";
+import { ButtonGradient, ButtonNomal, Text, Modal } from "@Components";
 import styles from "./profile.style";
 import { useState } from "react";
 
 export default function Profile(): ReactElement {
   const [isShowingCat, setIsShowingCat] = useState(false);
+  const [isDeletedAccount, setIsDeletedAccount] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -30,7 +31,7 @@ export default function Profile(): ReactElement {
         </View>
         <View style={styles.record}>
           <Text style={styles.recordTitle}>내 컵</Text>
-          {isShowingCat ? (
+          {!isShowingCat ? (
             <Image style={styles.catInTheCup} source={require("@assets/my-cup.png")} />
           ) : null}
           <ButtonGradient
@@ -53,12 +54,30 @@ export default function Profile(): ReactElement {
         >
           로그아웃
         </Text>
-        <Text
-          style={styles.accountDeletion}
-          onPress={() => alert("계정을 삭제하시겠습니까? YES or NO")}
-        >
+        <Text style={styles.accountDeletion} onPress={() => setIsDeletedAccount(!isDeletedAccount)}>
           계정 삭제
         </Text>
+        {/* When press delete account button */}
+        <Modal isVisible={isDeletedAccount}>
+          <Modal.Container>
+            <Modal.Header title="정말 삭제하시겠습니까?" />
+            <Modal.Body>
+              <Text>계정을 삭제하시면 뭐시기 저시기가 안 돼요!</Text>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonGradient
+                style={styles.deleteButton}
+                title="계정 유지하기"
+                onPress={() => setIsDeletedAccount(!isDeletedAccount)}
+              />
+              <ButtonNomal
+                style={styles.deleteButton}
+                title="계정 삭제하기"
+                onPress={() => setIsDeletedAccount(!isDeletedAccount)}
+              />
+            </Modal.Footer>
+          </Modal.Container>
+        </Modal>
       </View>
     </View>
   );
