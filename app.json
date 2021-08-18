@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "mokcha",
     "name": "coffee-life-balance",
     "slug": "coffee-life-balance",
     "version": "1.0.0",

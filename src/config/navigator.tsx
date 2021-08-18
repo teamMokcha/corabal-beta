@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Intro, Login, SignIn } from "@screens";
+import { Intro, Login, Profile, SignIn } from "@screens";
 
 const initialTheme = {
   dark: false,
@@ -15,6 +15,7 @@ export type StackNavigatorParams = {
   Intro: undefined;
   Login: undefined;
   SignIn: undefined;
+  Profile: undefined; // profile 화면 테스트용 21.08.17 수연
 };
 
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
@@ -29,6 +30,8 @@ export default function Navigator(): ReactElement {
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        {/* profile 화면 테스트용 21.08.17 수연 */}
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
