@@ -3,3 +3,4 @@ export { default as AppBootstrap } from "./app-bootstrap/app-bootstrap";
 export { default as ButtonGradient } from "./button/button-gradient";
 export { default as ButtonNomal } from "./button/button-nomal";
 export { default as AuthForm } from "./auth-form/auth-form";
+export { default as NicknameForm } from "./nickname-form/nickname-form";
