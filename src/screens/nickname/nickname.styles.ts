@@ -5,11 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-  signInLink: {
-    marginBottom: 50,
-    fontSize: 14,
-    color: "#757474"
   }
 });
 
