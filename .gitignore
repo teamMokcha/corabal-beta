@@ -13,5 +13,5 @@ package-lock.json
 # macOS
 .DS_Store
 
-# firebase config
-/src/config/firebase/firebaseConfig.jsx
+# API KEYS
+.env
