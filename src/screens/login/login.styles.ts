@@ -6,24 +6,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  scrollView: {
-    flex: 1,
-    marginTop: 106
-  },
-  inputContainer: {
-    paddingRight: 8,
-    paddingLeft: 8
-  },
-  inputLabel: {
-    fontSize: 16,
-    lineHeight: 23.17,
-    color: "#000000"
-  },
-  inputText: {
-    alignItems: "center",
-    paddingBottom: 8,
-    borderBottomWidth: 1,
-    borderColor: "#000000"
+  signInLink: {
+    marginBottom: 50,
+    fontSize: 14,
+    color: "#757474"
   }
 });
 

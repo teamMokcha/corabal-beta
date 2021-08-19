@@ -5,6 +5,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  termsOfUseLink: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 50
+  },
+  termsOfUseLinkText: {
+    marginTop: 24,
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#757474"
   }
 });
 
