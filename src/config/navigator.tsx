@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Intro, Login, SignIn, Nickname } from "@screens";
+import { Intro, Login, SignUp, Nickname } from "@screens";
 
 const initialTheme = {
   dark: false,
@@ -14,7 +14,7 @@ const initialTheme = {
 export type StackNavigatorParams = {
   Intro: undefined;
   Login: undefined;
-  SignIn: undefined;
+  SignUp: undefined;
   Nickname: undefined;
 };
 
@@ -26,7 +26,7 @@ export default function Navigator(): ReactElement {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Nickname" component={Nickname} />
       </Stack.Navigator>
     </NavigationContainer>

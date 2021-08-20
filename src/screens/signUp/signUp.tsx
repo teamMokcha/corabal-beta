@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
-import styles from "./signIn.styles";
+import styles from "./signUp.styles";
 import { AuthForm, Text } from "@Components";
 
 // To-Do

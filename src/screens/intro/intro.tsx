@@ -25,7 +25,7 @@ export default function Intro({ navigation }: NavigationProps): ReactElement {
           style={styles.buttonGradient}
           title="가입하기"
           onPress={() => {
-            navigation.navigate("SignIn");
+            navigation.navigate("SignUp");
           }}
         />
       </ScrollView>

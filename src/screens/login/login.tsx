@@ -27,7 +27,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
       <AuthForm inputValue={inputValue} handleInputValue={handleInputValue} buttonTitle="로그인" />
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("SignIn");
+          navigation.navigate("SignUp");
         }}
       >
         <Text style={styles.signInLink} weight="400">
