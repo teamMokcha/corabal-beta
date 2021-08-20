@@ -24,10 +24,10 @@ export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Nickname" component={Nickname} />
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="Nickname" component={Nickname} />
       </Stack.Navigator>
     </NavigationContainer>
   );
