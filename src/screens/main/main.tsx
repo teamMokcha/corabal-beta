@@ -1,10 +1,12 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { ReactElement } from "react";
+import { View, Button, Image, Pressable } from "react-native";
+import { Text } from "@Components";
+import styles from "./main.style";
 
-export default function Main() {
+export default function Main(): ReactElement {
   return (
-    <View>
-      <Text></Text>
+    <View style={styles.container}>
+      <Text>Main page.</Text>
     </View>
   );
 }
