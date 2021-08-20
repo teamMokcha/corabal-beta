@@ -15,4 +15,4 @@ package-lock.json
 
 # API KEYS
 .env
-./config/keys
+/config/keys.js
