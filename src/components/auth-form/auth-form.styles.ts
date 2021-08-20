@@ -22,6 +22,17 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     borderBottomWidth: 1,
     borderColor: "#000000"
+  },
+  validationText: {
+    fontSize: 12,
+    lineHeight: 17.38,
+    color: "#565656",
+    marginTop: 4,
+    marginBottom: 43
+  },
+  button: {
+    width: 328,
+    height: 48
   }
 });
 

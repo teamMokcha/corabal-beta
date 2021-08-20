@@ -4,10 +4,10 @@ import ButtonNomal from "../button/button-nomal";
 import ButtonGradient from "../button/button-gradient";
 import Text from "../text/text";
 import styles from "./auth-form.styles";
+import { email, password } from "@stores/stores";
 
-export default function authForm({ inputValue, handleInputValue, buttonTitle }: any): ReactElement {
+export default function authForm({ buttonTitle, buttonState }: any): ReactElement {
   const passwordRef = useRef<TextInput | null>(null);
-  const [isValid, setIsValid] = useState(false);
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.inputContainer}>
@@ -20,10 +20,10 @@ export default function authForm({ inputValue, handleInputValue, buttonTitle }: 
           autoCompleteType="email"
           keyboardType="email-address"
           returnKeyType="next"
+          maxLength={30}
           onChangeText={value => {
-            handleInputValue("email", value);
+            email.set(value);
           }}
-          value={inputValue.email}
           onSubmitEditing={() => {
             passwordRef.current?.focus();
           }}
@@ -37,26 +37,21 @@ export default function authForm({ inputValue, handleInputValue, buttonTitle }: 
           keyboardType="visible-password"
           returnKeyType="done"
           secureTextEntry
+          maxLength={30}
           ref={passwordRef}
           onChangeText={value => {
-            handleInputValue("password", value);
+            password.set(value);
           }}
-          value={inputValue.password}
         />
-        <Text
-          style={{
-            fontSize: 12,
-            lineHeight: 17.38,
-            color: "#565656",
-            marginTop: 4,
-            marginBottom: 43
-          }}
-          weight="400"
-        >
+        <Text style={styles.validationText} weight="400">
           {`* 영문, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요.\n `}
         </Text>
       </View>
-      <ButtonNomal title={buttonTitle} style={{ width: 328, height: 48 }} />
+      {buttonState === false ? (
+        <ButtonNomal title={buttonTitle} style={styles.button} />
+      ) : (
+        <ButtonGradient title={buttonTitle} style={styles.button} />
+      )}
     </ScrollView>
   );
 }

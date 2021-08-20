@@ -23,10 +23,13 @@
   "dependencies": {
     "@expo-google-fonts/noto-sans-kr": "^0.2.0",
     "@expo-google-fonts/roboto": "^0.2.0",
+    "@hookstate/core": "^3.0.8",
+    "@hookstate/devtools": "^3.0.1",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.0.4",
     "@react-navigation/stack": "^6.0.6",
     "expo": "~42.0.1",
+    "expo-firebase-core": "~3.1.0",
     "expo-font": "~9.2.1",
     "expo-linear-gradient": "~9.2.0",
     "expo-splash-screen": "~0.11.2",
