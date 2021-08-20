@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
-import { View, Text } from "react-native";
+import { View, Button, Image, Pressable } from "react-native";
+import { Text } from "@Components";
 import styles from "./main.style";
 
 export default function Main(): ReactElement {
