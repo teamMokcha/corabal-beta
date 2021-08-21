@@ -2,7 +2,8 @@ import React, { ReactElement, useState } from "react";
 import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import styles from "./signUp.styles";
 import { AuthForm, Text } from "@Components";
-import { auth } from "@config/firebase/firebaseConfig";
+import firebase from "firebase";
+import "firebase/firestore";
 import { email, password } from "@stores/stores";
 
 // To-Do
@@ -38,7 +39,7 @@ export default function SignUp(): ReactElement {
       passwordRegex.test(password.get())
     ) {
       try {
-        await auth.createUserWithEmailAndPassword(email.get(), password.get());
+        await firebase.auth().createUserWithEmailAndPassword(email.get(), password.get());
         setIsValid(true);
       } catch (error) {
         console.error(error);
