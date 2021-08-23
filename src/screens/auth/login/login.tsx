@@ -1,31 +1,29 @@
 import React, { ReactElement, useState, useRef } from "react";
-import { KeyboardAvoidingView, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
-import styles from "./signUp.styles";
-import { ButtonNomal, ButtonGradient, Text } from "@Components";
-import { signingUp } from "../../../api/auth-firebase";
+import { KeyboardAvoidingView, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import styles from "./login.styles";
+import authStyles from "../layout.styles";
+import { Text, ButtonGradient, ButtonNomal } from "@Components";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackNavigatorParams } from "@config/navigator";
 
-export default function SignUp(): ReactElement {
+type NavigationProps = {
+  navigation: StackNavigationProp<StackNavigatorParams, "Login">;
+};
+
+export default function Login({ navigation }: NavigationProps): ReactElement {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isValid, setIsValid] = useState(false);
   const passwordRef = useRef<TextInput | null>(null);
-
-  const handleSignUp = (): void => {
-    if (email !== "" && password !== "") {
-      setIsValid(true);
-      signingUp(email, password);
-    }
-  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.inputContainer}>
-          <Text style={(styles.inputLabel, { marginBottom: 15 })} weight="400">
+      <ScrollView contentContainerStyle={authStyles.scrollView}>
+        <View style={authStyles.inputContainer}>
+          <Text style={(authStyles.inputLabel, { marginBottom: 15 })} weight="400">
             e-mail
           </Text>
           <TextInput
-            style={styles.inputText}
+            // style={authStyles.inputText}
             placeholder="corabal@gmail.com"
             autoCompleteType="email"
             keyboardType="email-address"
@@ -40,15 +38,15 @@ export default function SignUp(): ReactElement {
             }}
           />
           {email !== "" ? null : (
-            <Text style={styles.validationText} weight="400">
+            <Text style={authStyles.validationText} weight="400">
               {"이메일 주소를 입력해주세요."}
             </Text>
           )}
-          <Text style={(styles.inputLabel, { marginTop: 41 })} weight="400">
+          <Text style={(authStyles.inputLabel, { marginTop: 41 })} weight="400">
             password
           </Text>
           <TextInput
-            style={styles.inputText}
+            // style={authStyles.inputText}
             autoCompleteType="password"
             keyboardType="visible-password"
             returnKeyType="done"
@@ -61,28 +59,28 @@ export default function SignUp(): ReactElement {
             }}
           />
           {password === "" ? (
-            <Text style={styles.validationText} weight="400">
+            <Text style={authStyles.validationText} weight="400">
               {`* 영문, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요.\n `}
             </Text>
           ) : (
-            <Text style={styles.validationText} weight="400">
+            <Text style={authStyles.validationText} weight="400">
               {"올바른 비밀번호를 입력해주세요."}
             </Text>
           )}
         </View>
         {email === "" || password === "" ? (
-          <ButtonNomal title="가입하기" style={styles.button} />
+          <ButtonNomal title="로그인" style={authStyles.button} />
         ) : (
-          <ButtonGradient title="가입하기" style={styles.button} onPress={() => handleSignUp()} />
+          <ButtonGradient title="로그인" style={authStyles.button} />
         )}
       </ScrollView>
-
-      <TouchableOpacity style={styles.termsOfUseLink}>
-        <Text style={styles.termsOfUseLinkText} weight="400">
-          개인정보 처리 방침
-        </Text>
-        <Text style={styles.termsOfUseLinkText} weight="400">
-          이용약관
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SignUp");
+        }}
+      >
+        <Text style={styles.signInLink} weight="400">
+          가입하기
         </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>

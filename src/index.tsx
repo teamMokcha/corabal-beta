@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import firebase from "firebase";
 import { AppBootstrap } from "@Components";
 import Navigator from "@config/navigator";
-import apiKeys from "../api/keys";
+import apiKeys from "@apis/keys";
 
 export default function App(): ReactElement {
   if (!firebase.apps.length) {

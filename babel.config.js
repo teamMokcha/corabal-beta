@@ -13,7 +13,8 @@ module.exports = function (api) {
             "@contexts": "./src/contexts",
             "@config": "./src/config",
             "@assets": "./assets",
-            "@stores": "./src/stores"
+            "@stores": "./src/stores",
+            "@apis": "./apis"
           }
         }
       ]
