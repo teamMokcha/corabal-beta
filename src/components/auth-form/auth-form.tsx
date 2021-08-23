@@ -1,12 +1,11 @@
-import React, { ReactElement, useState, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 import { View, ScrollView, TextInput } from "react-native";
 import ButtonNomal from "../button/button-nomal";
 import ButtonGradient from "../button/button-gradient";
 import Text from "../text/text";
 import styles from "./auth-form.styles";
-import { email, password } from "@stores/stores";
 
-export default function authForm({ buttonTitle, buttonState }: any): ReactElement {
+export default function authForm({ props }: any): ReactElement {
   const passwordRef = useRef<TextInput | null>(null);
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
@@ -21,8 +20,9 @@ export default function authForm({ buttonTitle, buttonState }: any): ReactElemen
           keyboardType="email-address"
           returnKeyType="next"
           maxLength={30}
+          value={props.email}
           onChangeText={value => {
-            email.set(value);
+            props.setEmail(value);
           }}
           onSubmitEditing={() => {
             passwordRef.current?.focus();
@@ -39,18 +39,19 @@ export default function authForm({ buttonTitle, buttonState }: any): ReactElemen
           secureTextEntry
           maxLength={30}
           ref={passwordRef}
+          value={props.password}
           onChangeText={value => {
-            password.set(value);
+            props.setPassword(value);
           }}
         />
         <Text style={styles.validationText} weight="400">
           {`* 영문, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요.\n `}
         </Text>
       </View>
-      {buttonState === false ? (
-        <ButtonNomal title={buttonTitle} style={styles.button} />
+      {props.buttonState === false ? (
+        <ButtonNomal title={props.buttonTitle} style={styles.button} />
       ) : (
-        <ButtonGradient title={buttonTitle} style={styles.button} />
+        <ButtonGradient title={props.buttonTitle} style={styles.button} />
       )}
     </ScrollView>
   );

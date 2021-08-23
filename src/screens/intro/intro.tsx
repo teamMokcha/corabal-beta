@@ -13,7 +13,7 @@ export default function Intro({ navigation }: NavigationProps): ReactElement {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Image style={styles.logo} source={require("@assets/logo-temp.png")} />
+        <Image style={styles.logo} source={require("@assets/logo.png")} />
         <ButtonNomal
           style={styles.buttonNomal}
           title="로그인"

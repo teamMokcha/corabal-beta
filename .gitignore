@@ -14,5 +14,4 @@ package-lock.json
 .DS_Store
 
 # API KEYS
-.env
-/config/keys.js
+api/keys.tsx

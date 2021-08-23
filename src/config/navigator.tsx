@@ -23,11 +23,11 @@ const Stack = createNativeStackNavigator<StackNavigatorParams>();
 export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Nickname" component={Nickname} />
+      <Stack.Navigator>
+        <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+        <Stack.Screen name="Nickname" component={Nickname} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

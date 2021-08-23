@@ -1,55 +1,82 @@
-import React, { ReactElement, useState } from "react";
-import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import React, { ReactElement, useState, useRef } from "react";
+import { KeyboardAvoidingView, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "./signUp.styles";
-import { AuthForm, Text } from "@Components";
-import firebase from "firebase";
-import "firebase/firestore";
-import { email, password } from "@stores/stores";
-
-// To-Do
-// 1. Config에 AuthContext 만들고 > AuthProvider로 APP 전체를 감싸주기
-// >>> 3) authForm의 버튼에서 createAccoutn 함수 호출
-// >>> 3) 백엔드에 해당 이메일과 비밀번호로 User 만들어줌
-// 유효성 검증 띄울 수 있어야 함 - state 만들고, regex로 걸면 될
+import { ButtonNomal, ButtonGradient, Text } from "@Components";
+import { signingUp } from "../../../api/auth-firebase";
 
 export default function SignUp(): ReactElement {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [emailInvalidWarning, setEmailInvalidWarning] = useState("");
-  const [passwordInvalidWarning, setPasswordInvalidWarning] = useState("");
+  const passwordRef = useRef<TextInput | null>(null);
 
-  const createAccount = async () => {
-    const emailRegex = new RegExp("");
-    const passwordRegex = new RegExp("");
-    if (email.get() === "") {
-      setEmailInvalidWarning("이메일 주소를 입력해주세요.");
-    } else if (emailRegex.test(email.get())) {
-      setEmailInvalidWarning("올바른 이메일 주소를 입력해주세요.");
-    }
-
-    if (password.get() === "") {
-      setPasswordInvalidWarning("비밀번호를 입력해주세요.");
-    } else if (passwordRegex.test(password.get())) {
-      setPasswordInvalidWarning("올바른 비밀번호를 입력해주세요.");
-    }
-
-    if (
-      email.get() !== "" &&
-      password.get() !== "" &&
-      emailRegex.test(email.get()) &&
-      passwordRegex.test(password.get())
-    ) {
-      try {
-        await firebase.auth().createUserWithEmailAndPassword(email.get(), password.get());
-        setIsValid(true);
-      } catch (error) {
-        console.error(error);
-      }
+  const handleSignUp = (): void => {
+    if (email !== "" && password !== "") {
+      setIsValid(true);
+      signingUp(email, password);
     }
   };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <AuthForm buttonTitle="가입하기" buttonState={isValid} />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.inputContainer}>
+          <Text style={(styles.inputLabel, { marginBottom: 15 })} weight="400">
+            e-mail
+          </Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder="corabal@gmail.com"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            returnKeyType="next"
+            maxLength={30}
+            value={email}
+            onChangeText={value => {
+              setEmail(value);
+            }}
+            onSubmitEditing={() => {
+              passwordRef.current?.focus();
+            }}
+          />
+          {email !== "" ? null : (
+            <Text style={styles.validationText} weight="400">
+              {"이메일 주소를 입력해주세요."}
+            </Text>
+          )}
+          <Text style={(styles.inputLabel, { marginTop: 41 })} weight="400">
+            password
+          </Text>
+          <TextInput
+            style={styles.inputText}
+            autoCompleteType="password"
+            keyboardType="visible-password"
+            returnKeyType="done"
+            secureTextEntry
+            maxLength={30}
+            ref={passwordRef}
+            value={password}
+            onChangeText={value => {
+              setPassword(value);
+            }}
+          />
+          {password === "" ? (
+            <Text style={styles.validationText} weight="400">
+              {`* 영문, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요.\n `}
+            </Text>
+          ) : (
+            <Text style={styles.validationText} weight="400">
+              {"올바른 비밀번호를 입력해주세요."}
+            </Text>
+          )}
+        </View>
+        {email === "" || password === "" ? (
+          <ButtonNomal title="가입하기" style={styles.button} />
+        ) : (
+          <ButtonGradient title="가입하기" style={styles.button} onPress={() => handleSignUp()} />
+        )}
+      </ScrollView>
+
       <TouchableOpacity style={styles.termsOfUseLink}>
         <Text style={styles.termsOfUseLinkText} weight="400">
           개인정보 처리 방침
