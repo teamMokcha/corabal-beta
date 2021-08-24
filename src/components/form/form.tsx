@@ -1,5 +1,7 @@
 import React, { ReactElement } from "react";
+import { View } from "react-native";
 import { Formik } from "formik";
+import styles from "./forms.styles";
 
 export default function Form({
   initialValues,
@@ -14,7 +16,7 @@ export default function Form({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {() => <>{children}</>}
+      {() => <View style={styles.inputContainer}>{children}</View>}
     </Formik>
   );
 }

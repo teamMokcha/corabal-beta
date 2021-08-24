@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import { View, TextInput } from "react-native";
 import Text from "../text/text";
-
-export default function FormField(props: any): ReactElement {
+import styles from "./forms.styles";
+const FormField = (props: any): ReactElement => {
   const {
     placeholder,
     form: { errors, touched, setFieldTouched },
@@ -14,12 +14,17 @@ export default function FormField(props: any): ReactElement {
 
   return (
     <View>
-      <Text>{name}</Text>
+      <Text weight="400" style={styles.inputLabel}>
+        {name}
+      </Text>
       <TextInput
+        style={styles.inputBox}
         placeholder={placeholder}
-        onChangeText={text => onChange(name)(text)}
-        onBlur={() => {
+        onChangeText={text => {
+          onChange(name)(text);
           setFieldTouched(name);
+        }}
+        onBlur={() => {
           onBlur(name);
         }}
         autoCorrect={false}
@@ -28,7 +33,20 @@ export default function FormField(props: any): ReactElement {
         value={value}
         {...inputProps}
       />
-      {hasError && <Text>{errors[name]}</Text>}
+      {!hasError && name === "password" ? (
+        <Text weight="400" style={[styles.validationText, { color: "#565656" }]}>
+          {"* 영어, 숫자, 특수문자를 조합해 8자리 이상으로 입력해주세요."}
+        </Text>
+      ) : (
+        hasError && (
+          <Text weight="400" style={styles.validationText}>
+            {errors[name]}
+          </Text>
+        )
+      )}
     </View>
   );
-}
+};
+
+FormField.displayName = "FormField";
+export default FormField;

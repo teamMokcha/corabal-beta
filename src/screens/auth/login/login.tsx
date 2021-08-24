@@ -1,8 +1,6 @@
 import React, { ReactElement, useState, useRef } from "react";
 import { KeyboardAvoidingView, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import styles from "./login.styles";
-import authStyles from "../layout.styles";
-import { Text, ButtonGradient, ButtonNomal } from "@Components";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 
@@ -17,7 +15,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <ScrollView contentContainerStyle={authStyles.scrollView}>
+      {/* <ScrollView contentContainerStyle={authStyles.scrollView}>
         <View style={authStyles.inputContainer}>
           <Text style={(authStyles.inputLabel, { marginBottom: 15 })} weight="400">
             e-mail
@@ -82,7 +80,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
         <Text style={styles.signInLink} weight="400">
           가입하기
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </KeyboardAvoidingView>
   );
 }

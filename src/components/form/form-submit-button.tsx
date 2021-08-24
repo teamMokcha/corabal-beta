@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import ButtonNomal from "../button/button-nomal";
 import ButtonGradient from "../button/button-gradient";
 import { useFormikContext } from "formik";
+import styles from "./forms.styles";
 
 interface FormSubmitButtonProps {
   title: string;
@@ -13,9 +14,9 @@ export default function FormSubmitButton({ title }: FormSubmitButtonProps): Reac
   return (
     <>
       {isValid ? (
-        <ButtonGradient title={title} onPress={() => handleSubmit()} />
+        <ButtonGradient title={title} onPress={() => handleSubmit()} style={styles.button} />
       ) : (
-        <ButtonNomal title={title} />
+        <ButtonNomal title={title} style={styles.button} />
       )}
     </>
   );

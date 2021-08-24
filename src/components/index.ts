@@ -7,3 +7,4 @@ export { default as Form } from "./form/form";
 export { default as FormField } from "./form/form-field";
 export { default as FormSubmitButton } from "./form/form-submit-button";
 export { default as NicknameForm } from "./nickname-form/nickname-form";
+export { default as LinkToTerm } from "./link-to-term/link-to-term";
