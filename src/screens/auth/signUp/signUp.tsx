@@ -1,9 +1,9 @@
 import React, { ReactElement, RefObject, useRef } from "react";
-import { KeyboardAvoidingView, View, ScrollView, TouchableOpacity, TextInput } from "react-native";
-import { ButtonGradient, ButtonNomal, Text } from "@Components";
+import { KeyboardAvoidingView, ScrollView, TouchableOpacity } from "react-native";
 import { signingUp } from "@apis/auth-firebase";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Field } from "formik";
 import * as Yup from "yup";
+import { Text, Form, FormField, FormSubmitButton } from "@Components";
 import styles from "./signUp.styles";
 import authLayout from "../layout.styles";
 
@@ -25,111 +25,50 @@ const validationSchema = Yup.object().shape({
 
 // const passwordRef = React.createRef<TextInput>(null);
 
-const SignUp = () => {
+export default function SignUp(): ReactElement {
   return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      validationSchema={validationSchema}
-      onSubmit={values => console.log(values)}
-    >
-      {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-        <KeyboardAvoidingView style={styles.container}>
-          <ScrollView contentContainerStyle={styles.container}>
-            <TextInput
+    <>
+      <KeyboardAvoidingView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <Form
+            initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
+            validateOnMount={false}
+            isInitialValid={false}
+            onSubmit={(values: any) => console.log(values)}
+          >
+            <Field
+              component={FormField}
+              name="email"
               placeholder="corabal@gamil.com"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              autoCorrect={false}
-              autoCapitalize="none"
-              autoCompleteType="email"
               keyboardType="email-address"
               textContentType="emailAddress"
               returnKeyType="next"
               returnKeyLabel="next"
-              // onSubmitEditing={() => passwordRef.current?.focus()}
             />
-            {errors.email && touched.email && <Text>{errors.email}</Text>}
 
-            <TextInput
+            <Field
               // ref={passwordRef}
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              autoCapitalize="none"
+              component={FormField}
+              name="password"
               secureTextEntry
               textContentType="password"
-              value={values.password}
               returnKeyType="go"
               returnKeyLabel="go"
             />
-            {errors.password && touched.password && <Text>{errors.password}</Text>}
-            <ButtonGradient onPress={() => handleSubmit} title="가입하기" />
-          </ScrollView>
-        </KeyboardAvoidingView>
-      )}
-    </Formik>
+            <FormSubmitButton title="가입하기" />
+          </Form>
+
+          <TouchableOpacity style={styles.termsOfUseLink}>
+            <Text style={styles.termsOfUseLinkText} weight="400">
+              개인정보 처리 방침
+            </Text>
+            <Text style={styles.termsOfUseLinkText} weight="400">
+              이용약관
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
-};
-
-export default SignUp;
-
-// export default function SignUp(): ReactElement {
-//   const { handleChange, handleSubmit, handleBlur, values, errors, touched } = useFormik({
-//     validationSchema: validationSchema,
-//     initialValues: { email: "", password: "" },
-//     onSubmit: values => {
-//       signingUp(values.email, values.password);
-//     }
-//   });
-
-// return (
-//   <KeyboardAvoidingView style={styles.container}>
-//     <ScrollView>
-//       <View style={authLayout.inputContainer}>
-//         <Text style={authLayout.inputLabel} weight="400">
-//           {"email"}
-//         </Text>
-//         <TextInput
-//           placeholder="corabal@gamil.com"
-//           autoCapitalize="none"
-//           autoCompleteType="email"
-//           keyboardType="email-address"
-//           returnKeyType="next"
-//           returnKeyLabel="next"
-//           onChangeText={handleChange("email")}
-//           onBlur={handleBlur("email")}
-//           error={errors.email}
-//           touched={touched.email}
-//           onSubmitEditing={() => passwordRef.current?.focus()}
-//         />
-//         <Text style={authLayout.inputLabel} weight="400">
-//           {"password"}
-//         </Text>
-//         <TextInput
-//           ref={passwordRef}
-//           secureTextEntry
-//           autoCompleteType="password"
-//           autoCapitalize="none"
-//           keyboardAppearance="dark"
-//           returnKeyType="go"
-//           returnKeyLabel="go"
-//           onChangeText={handleChange("password")}
-//           onBlur={handleBlur("password")}
-//           error={errors.password}
-//           touched={touched.password}
-//           onSubmitEditing={() => handleSubmit}
-//         />
-//       </View>
-//       <ButtonNomal title="가입하기" style={authLayout.button} onPress={handleSubmit} />
-//       <TouchableOpacity style={styles.termsOfUseLink}>
-//         <Text style={styles.termsOfUseLinkText} weight="400">
-//           개인정보 처리 방침
-//         </Text>
-//         <Text style={styles.termsOfUseLinkText} weight="400">
-//           이용약관
-//         </Text>
-//       </TouchableOpacity>
-//     </ScrollView>
-//   </KeyboardAvoidingView>
-// );
-// }
+}
