@@ -1,8 +1,15 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Intro, Login, SignIn, Nickname, Main, Profile } from "@screens";
-import { Pressable, Image, Button, TouchableOpacity } from "react-native";
+import { Intro, Login, SignIn, Nickname, Main, Profile, Shop, Cups } from "@screens";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerNavigationProp
+} from "@react-navigation/drawer";
+import { Image, Linking, TouchableOpacity, View } from "react-native";
+import { Text } from "@Components";
+import styles from "./navigator.style";
 
 const initialTheme = {
   dark: false,
@@ -24,51 +31,113 @@ export type StackNavigatorParams = {
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
 
 export default function Navigator(): ReactElement {
-  // 전역에서 상태 관리하기 전엔, isLoggedOut 변수로 헤더 테스트 - 21.08.20 수연
-  // isLoggedOut 이 true 일 때, Intro 페이지부터 나오고
-  // isLoggedOut 이 false 일 때(= 로그인 된 상태), Main 부터 나옴
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
-  return isLoggedOut ? (
-    <NavigationContainer theme={initialTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="Nickname" component={Nickname} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  ) : (
-    <NavigationContainer theme={initialTheme}>
-      <Stack.Navigator initialRouteName="Main">
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={({ navigation }) => ({
-            title: "",
-            headerShadowVisible: false,
-            // eslint-disable-next-line react/display-name
-            headerLeft: () => (
-              <Pressable
-                style={{ width: 59, height: 56, marginLeft: 16 }}
-                onPress={() => navigation.navigate("Profile")}
-              >
-                <Image style={{ height: 35, width: 35 }} source={require("@assets/profile.png")} />
-              </Pressable>
-            ),
-            // eslint-disable-next-line react/display-name
-            headerRight: () => (
-              <Pressable
-                style={{ width: 59, height: 56 }}
-                onPress={() => navigation.navigate("Intro")}
-              >
-                <Image style={{ height: 35, width: 35 }} source={require("@assets/profile.png")} />
-              </Pressable>
-            )
-          })}
-        />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Intro" component={Intro} />
-      </Stack.Navigator>
-    </NavigationContainer>
+  return (
+    // <NavigationContainer theme={initialTheme}>
+    <Stack.Navigator initialRouteName="Main">
+      <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+      <Stack.Screen name="Nickname" component={Nickname} options={{ headerShown: false }} />
+      <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen name="Profile" component={Profile} />
+    </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
+
+// Drawer
+export type DrawerNavigationParams = {
+  Intro: undefined;
+  Login: undefined;
+  SignIn: undefined;
+  Nickname: undefined;
+  Main: undefined;
+  Profile: undefined;
+  Shop: undefined;
+  Cups: undefined;
+};
+
+const Drawer = createDrawerNavigator();
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function DrawerContent({ navigation }: any) {
+  // console.log(navigation)
+  return (
+    <DrawerContentScrollView>
+      <View style={styles.aimContainer}>
+        <Text style={styles.aim}>
+          목표 <Text style={styles.aimStrong}>1</Text>일 <Text style={styles.aimStrong}>1</Text>잔
+        </Text>
+        <Text style={styles.aimSetting}>목표 설정 {">"}</Text>
+      </View>
+      <View style={styles.shopAndCups}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Shop")}>
+          <Image style={{ width: 48, height: 48 }} source={require("@assets/shop.png")} />
+          <Text>컵 가게</Text>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Cups")}>
+          <Image style={{ width: 48, height: 48 }} source={require("@assets/cups.png")} />
+          <Text>컵 보관함</Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TouchableOpacity
+          style={styles.fonts}
+          activeOpacity={0.5}
+          onPress={() => Linking.openURL("https://www.google.com")}
+        >
+          <Text>공지사항</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.fonts}
+          activeOpacity={0.5}
+          onPress={() => Linking.openURL("https://www.google.com")}
+        >
+          <Text>이용약관</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.fonts}
+          activeOpacity={0.5}
+          onPress={() => Linking.openURL("https://www.google.com")}
+        >
+          <Text>개인정보 정책</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.fonts}
+          activeOpacity={0.5}
+          onPress={() => Linking.openURL("https://www.google.com")}
+        >
+          <Text>개발자 소개</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.version}>v1.0.0</Text>
+    </DrawerContentScrollView>
+  );
+}
+
+export const RootNavigator = (): ReactElement => {
+  return (
+    <NavigationContainer theme={initialTheme}>
+      <Drawer.Navigator
+        initialRouteName="Main"
+        drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}
+        screenOptions={{
+          drawerType: "front",
+          headerTintColor: "white",
+          drawerPosition: "right",
+          swipeEnabled: false
+        }}
+      >
+        <Drawer.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
+        <Drawer.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Drawer.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+        <Drawer.Screen name="Nickname" component={Nickname} options={{ headerShown: false }} />
+        <Drawer.Screen name="Main" component={Main} />
+        <Drawer.Screen name="Profile" component={Profile} />
+        <Drawer.Screen name="Shop" component={Shop} />
+        <Drawer.Screen name="Cups" component={Cups} />
+        <Drawer.Screen name="Navigator" component={Navigator} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
