@@ -5,7 +5,7 @@ import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { signingUp } from "@apis/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
-import styles from "../auth.styles";
+import styles from "./auth.styles";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()

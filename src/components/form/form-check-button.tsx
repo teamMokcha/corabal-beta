@@ -27,7 +27,7 @@ export default function FormCheckButton(): ReactElement {
         />
       )}
       <Text weight="400" style={styles.checkTermsText}>
-        개인정보 처리 방침에 동의합니다.
+        개인정보 처리 방침과 이용약관에 동의합니다.
       </Text>
     </View>
   );

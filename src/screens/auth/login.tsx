@@ -2,7 +2,7 @@ import React, { ReactElement, useState, useRef } from "react";
 import { KeyboardAvoidingView, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
-import styles from "../auth.styles";
+import styles from "./auth.styles";
 
 type NavigationProps = {
   navigation: StackNavigationProp<StackNavigatorParams, "Login">;

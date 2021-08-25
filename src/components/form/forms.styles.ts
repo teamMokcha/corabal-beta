@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: 325
   },
   checkTermsButton: {
-    marginTop: 2,
+    marginTop: 4,
     marginBottom: 2,
     marginRight: 4,
     alignContent: "center",
