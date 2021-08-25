@@ -1,11 +1,32 @@
-import React, { ReactElement } from "react";
-import { View, Image } from "react-native";
+import React, { ReactElement, useLayoutEffect, useState } from "react";
+import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, ButtonNomal, Text, Modal } from "@Components";
 import styles from "./profile.style";
-import { useState } from "react";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { DrawerNavigationParams } from "@config/navigator";
 
-export default function Profile(): ReactElement {
+type NavigationProps = {
+  navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;
+};
+
+export default function Profile({ navigation }: NavigationProps): ReactElement {
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/display-name
+      headerLeft: () => (
+        <View>
+          <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.goBack()}>
+            <Image
+              style={{ width: 11, height: 22, marginLeft: 16, marginRight: 16 }}
+              source={require("@assets/btn_back.png")}
+            />
+          </TouchableOpacity>
+        </View>
+      )
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

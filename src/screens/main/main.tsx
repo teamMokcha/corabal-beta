@@ -11,7 +11,7 @@ type NavigationProps = {
 };
 
 export default function Main({ navigation }: NavigationProps): ReactElement {
-  console.log(navigation);
+  // console.log(navigation);
   useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/display-name
