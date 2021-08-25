@@ -1,42 +1,62 @@
-import React, { ReactElement } from "react";
-import { View, Image } from "react-native";
+import React, { ReactElement, useLayoutEffect, useState } from "react";
+import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, ButtonNomal, Text, Modal } from "@Components";
 import styles from "./profile.style";
-import { useState } from "react";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { DrawerNavigationParams } from "@config/navigator";
 
-export default function Profile(): ReactElement {
-  const [isShowingCat, setIsShowingCat] = useState(false);
+type NavigationProps = {
+  navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;
+};
+
+export default function Profile({ navigation }: NavigationProps): ReactElement {
+  const [isCallingCat, setIsCallingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/display-name
+      headerLeft: () => (
+        <View>
+          <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.goBack()}>
+            <Image
+              style={{ width: 11, height: 22, marginLeft: 16, marginRight: 16 }}
+              source={require("@assets/btn_back.png")}
+            />
+          </TouchableOpacity>
+        </View>
+      )
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.info}>
-        <Image source={require("@assets/profile.png")} />
+        <Image style={styles.profileImage} source={require("@assets/profile.png")} />
         <View style={styles.user}>
           <Text onPress={() => console.log("누르면 이름을 바꿀 수 있음")} style={styles.userName}>
             커라밸님
           </Text>
-          <Image source={require("@assets/updating-user-name.png")} />
+          <Image style={styles.userNameUpdate} source={require("@assets/updating-user-name.png")} />
         </View>
         <Text style={styles.userMail}>coffeeout@gmail.com</Text>
       </View>
       <View style={styles.records}>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>기록</Text>
-          <Text style={styles.recordContent}>48</Text>
+          <Text style={styles.recordsTitle}>기록</Text>
+          <Text style={styles.recordFonts}>48</Text>
         </View>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>포인트</Text>
-          <Text style={styles.recordContent}>50p</Text>
+          <Text style={styles.recordsTitle}>포인트</Text>
+          <Text style={styles.recordFonts}>50P</Text>
+          <ButtonGradient style={styles.gradientButton} title="광고 보기 5p" />
         </View>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>내 컵</Text>
-          {!isShowingCat ? (
-            <Image style={styles.catInTheCup} source={require("@assets/my-cup.png")} />
-          ) : null}
+          <Text style={styles.recordsTitle}>내 컵</Text>
+          <Image style={styles.catInCup} source={require("@assets/cat-in-the-cup.png")} />
           <ButtonGradient
-            onPress={() => setIsShowingCat(!isShowingCat)}
-            style={styles.callingCat}
+            onPress={() => setIsCallingCat(!isCallingCat)}
+            style={styles.gradientButton}
             title="고양이 부르기"
           />
         </View>
@@ -74,6 +94,35 @@ export default function Profile(): ReactElement {
                 style={styles.deleteButton}
                 title="계정 삭제하기"
                 onPress={() => setIsDeletedAccount(!isDeletedAccount)}
+              />
+            </Modal.Footer>
+          </Modal.Container>
+        </Modal>
+        {/* When press calling cat button */}
+        <Modal isVisible={isCallingCat}>
+          <Modal.Container>
+            <Modal.Body>
+              <TouchableOpacity onPress={() => setIsCallingCat(!isCallingCat)}>
+                <Image style={styles.buttonX} source={require("@assets/btn_x.png")} />
+              </TouchableOpacity>
+              <Image style={styles.modalCatInCup} source={require("@assets/cat-in-the-cup.png")} />
+              <Text>고양이를 부르시겠습니까?</Text>
+              <Text style={styles.pointFont}>
+                내 포인트{" "}
+                <Image style={styles.pointImage} source={require("@assets/btn_point.png")} />
+                <Text>151p</Text>
+              </Text>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonNomal
+                onPress={() => setIsCallingCat(!isCallingCat)}
+                style={styles.modalButton}
+                title="결제하기"
+              />
+              <ButtonGradient
+                onPress={() => setIsCallingCat(!isCallingCat)}
+                style={styles.modalButton}
+                title="광고보기"
               />
             </Modal.Footer>
           </Modal.Container>
