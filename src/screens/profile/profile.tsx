@@ -5,40 +5,34 @@ import styles from "./profile.style";
 import { useState } from "react";
 
 export default function Profile(): ReactElement {
-  const [isShowingCat, setIsShowingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.info}>
-        <Image source={require("@assets/profile.png")} />
+        <Image style={styles.profileImage} source={require("@assets/profile.png")} />
         <View style={styles.user}>
           <Text onPress={() => console.log("누르면 이름을 바꿀 수 있음")} style={styles.userName}>
             커라밸님
           </Text>
-          <Image source={require("@assets/updating-user-name.png")} />
+          <Image style={styles.userNameUpdate} source={require("@assets/updating-user-name.png")} />
         </View>
         <Text style={styles.userMail}>coffeeout@gmail.com</Text>
       </View>
       <View style={styles.records}>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>기록</Text>
-          <Text style={styles.recordContent}>48</Text>
+          <Text style={styles.recordsTitle}>기록</Text>
+          <Text style={styles.recordFonts}>48</Text>
         </View>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>포인트</Text>
-          <Text style={styles.recordContent}>50p</Text>
+          <Text style={styles.recordsTitle}>포인트</Text>
+          <Text style={styles.recordFonts}>50P</Text>
+          <ButtonGradient style={styles.gradientButton} title="광고 보기 5p" />
         </View>
         <View style={styles.record}>
-          <Text style={styles.recordTitle}>내 컵</Text>
-          {!isShowingCat ? (
-            <Image style={styles.catInTheCup} source={require("@assets/my-cup.png")} />
-          ) : null}
-          <ButtonGradient
-            onPress={() => setIsShowingCat(!isShowingCat)}
-            style={styles.callingCat}
-            title="고양이 부르기"
-          />
+          <Text style={styles.recordsTitle}>내 컵</Text>
+          <Image style={styles.catInCup} source={require("@assets/cat-in-the-cup.png")} />
+          <ButtonGradient style={styles.gradientButton} title="고양이 부르기" />
         </View>
       </View>
       <View style={styles.config}>
