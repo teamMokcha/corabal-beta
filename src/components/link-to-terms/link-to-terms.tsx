@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
 import { TouchableOpacity } from "react-native";
 import Text from "../text/text";
-import styles from "./link-to-term.styles";
+import styles from "./link-to-terms.styles";
 
-export default function LinkToTerm({ children }: any, { style }: any): ReactElement {
+export default function LinkToTerms({ children }: any, { style }: any): ReactElement {
   return (
     <TouchableOpacity>
       <Text style={styles.termsOfUseLinkText} weight="400">

@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { View, TextInput } from "react-native";
 import Text from "../text/text";
 import styles from "./forms.styles";
+
 const FormField = (props: any): ReactElement => {
   const {
     placeholder,
