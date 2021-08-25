@@ -12,7 +12,9 @@ module.exports = function (api) {
             "@utils": "./src/utils",
             "@contexts": "./src/contexts",
             "@config": "./src/config",
-            "@assets": "./assets"
+            "@assets": "./assets",
+            "@stores": "./src/stores",
+            "@apis": "./apis"
           }
         }
       ]

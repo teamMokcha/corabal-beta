@@ -6,16 +6,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  termsOfUseLink: {
+  eamilContainer: {
+    marginBottom: 41
+  },
+  termsContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 50
-  },
-  termsOfUseLinkText: {
-    marginTop: 24,
-    fontSize: 14,
-    lineHeight: 20,
-    color: "#757474"
+    marginTop: 158,
+    marginBottom: 53
   }
 });
 

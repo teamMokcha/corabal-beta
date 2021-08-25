@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { View } from "react-native";
-import { Text } from "@Components";
+import Text from "../text/text";
 import RNModal from "react-native-modal";
 import styles from "./modal.styles";
 

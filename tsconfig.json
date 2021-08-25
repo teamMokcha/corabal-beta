@@ -15,7 +15,9 @@
       "@utils": ["src/utils"],
       "@contexts/*": ["src/contexts/*"],
       "@config/*": ["src/config/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@stores/*": ["src/stores/*"],
+      "@apis/*": ["apis/*"]
     }
   },
   "extends": "expo/tsconfig.base"

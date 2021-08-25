@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Intro, Login, SignIn, Nickname, Main, Profile, Shop, Cups } from "@screens";
+import { Intro, Login, SignUp, Nickname, Main, Profile, Shop, Cups } from "@screens";
 import { createDrawerNavigator, DrawerContentScrollView } from "@react-navigation/drawer";
 import { Image, Linking, TouchableOpacity, View } from "react-native";
 import { Text } from "@Components";
@@ -18,7 +18,7 @@ const initialTheme = {
 export type StackNavigatorParams = {
   Intro: undefined;
   Login: undefined;
-  SignIn: undefined;
+  SignUp: undefined;
   Nickname: undefined;
   Main: undefined;
   Profile: undefined;
@@ -34,7 +34,7 @@ export default function Navigator(): ReactElement {
       <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Nickname" component={Nickname} />
         <Stack.Screen name="Main" component={DrawerNavigator} />
         <Stack.Screen name="Profile" component={Profile} />

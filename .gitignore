@@ -9,9 +9,10 @@ npm-debug.*
 *.orig.*
 web-build/
 package-lock.json
+yarn.lock
 
 # macOS
 .DS_Store
 
 # API KEYS
-.env
+api/keys.tsx
