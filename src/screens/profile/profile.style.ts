@@ -72,6 +72,27 @@ const styles = StyleSheet.create({
   deleteButton: {
     width: 100,
     height: 30
+  },
+  buttonX: {
+    width: 21,
+    height: 21,
+    marginLeft: 300,
+    marginTop: 24
+  },
+  modalCatInCup: {
+    width: 112,
+    height: 112
+  },
+  pointFont: {
+    fontSize: 12
+  },
+  pointImage: {
+    width: 12,
+    height: 12
+  },
+  modalButton: {
+    width: 136,
+    height: 48
   }
 });
 

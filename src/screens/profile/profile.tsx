@@ -10,6 +10,7 @@ type NavigationProps = {
 };
 
 export default function Profile({ navigation }: NavigationProps): ReactElement {
+  const [isCallingCat, setIsCallingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
 
   useLayoutEffect(() => {
@@ -53,7 +54,11 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
         <View style={styles.record}>
           <Text style={styles.recordsTitle}>내 컵</Text>
           <Image style={styles.catInCup} source={require("@assets/cat-in-the-cup.png")} />
-          <ButtonGradient style={styles.gradientButton} title="고양이 부르기" />
+          <ButtonGradient
+            onPress={() => setIsCallingCat(!isCallingCat)}
+            style={styles.gradientButton}
+            title="고양이 부르기"
+          />
         </View>
       </View>
       <View style={styles.config}>
@@ -89,6 +94,35 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
                 style={styles.deleteButton}
                 title="계정 삭제하기"
                 onPress={() => setIsDeletedAccount(!isDeletedAccount)}
+              />
+            </Modal.Footer>
+          </Modal.Container>
+        </Modal>
+        {/* When press calling cat button */}
+        <Modal isVisible={isCallingCat}>
+          <Modal.Container>
+            <Modal.Body>
+              <TouchableOpacity onPress={() => setIsCallingCat(!isCallingCat)}>
+                <Image style={styles.buttonX} source={require("@assets/btn_x.png")} />
+              </TouchableOpacity>
+              <Image style={styles.modalCatInCup} source={require("@assets/cat-in-the-cup.png")} />
+              <Text>고양이를 부르시겠습니까?</Text>
+              <Text style={styles.pointFont}>
+                내 포인트{" "}
+                <Image style={styles.pointImage} source={require("@assets/btn_point.png")} />
+                <Text>151p</Text>
+              </Text>
+            </Modal.Body>
+            <Modal.Footer>
+              <ButtonNomal
+                onPress={() => setIsCallingCat(!isCallingCat)}
+                style={styles.modalButton}
+                title="결제하기"
+              />
+              <ButtonGradient
+                onPress={() => setIsCallingCat(!isCallingCat)}
+                style={styles.modalButton}
+                title="광고보기"
               />
             </Modal.Footer>
           </Modal.Container>
