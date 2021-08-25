@@ -6,3 +6,4 @@ export { default as Main } from "./main/main";
 export { default as Profile } from "./profile/profile";
 export { default as Shop } from "./shop/shop";
 export { default as Cups } from "./cups/cups";
+export { default as Goal } from "./goal/goal";
