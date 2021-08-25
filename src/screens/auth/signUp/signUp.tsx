@@ -1,9 +1,10 @@
 import React, { ReactElement } from "react";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
+import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { signingUp } from "@apis/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
-import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
 import styles from "../auth.styles";
 
 const validationSchema = Yup.object().shape({
@@ -62,8 +63,8 @@ export default function SignUp(): ReactElement {
           <FormSubmitButton title="가입하기" />
         </Form>
         <View style={styles.termsContainer}>
-          <LinkToTerms>{"개인 정보 처리 방침"}</LinkToTerms>
-          <LinkToTerms>{"이용 약관"}</LinkToTerms>
+          <LinkToTerms URL={PRIVACY_POLICY}>{"개인 정보 처리 방침"}</LinkToTerms>
+          <LinkToTerms URL={TERMS_OF_USE}>{"이용 약관"}</LinkToTerms>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
