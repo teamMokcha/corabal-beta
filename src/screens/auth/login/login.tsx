@@ -1,8 +1,8 @@
 import React, { ReactElement, useState, useRef } from "react";
 import { KeyboardAvoidingView, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import styles from "./login.styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
+import styles from "../auth.styles";
 
 type NavigationProps = {
   navigation: StackNavigationProp<StackNavigatorParams, "Login">;
@@ -14,7 +14,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
   const passwordRef = useRef<TextInput | null>(null);
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView style={{}}>
       {/* <ScrollView contentContainerStyle={authStyles.scrollView}>
         <View style={authStyles.inputContainer}>
           <Text style={(authStyles.inputLabel, { marginBottom: 15 })} weight="400">

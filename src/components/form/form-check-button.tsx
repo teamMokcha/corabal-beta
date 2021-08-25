@@ -12,18 +12,23 @@ interface Values {
 
 export default function FormCheckButton(): ReactElement {
   const { setFieldValue, values }: FormikContextType<Values> = useFormikContext();
-  if (values.acceptTerms === false) {
-    return (
-      <View style={styles.checkTermsContainer}>
+
+  return (
+    <View style={styles.checkTermsContainer}>
+      {values.acceptTerms === false ? (
         <TouchableOpacity
-          style={styles.checkTermsButton}
+          style={[styles.checkTermsButton, styles.checkTermsButtonFalse]}
           onPress={() => setFieldValue("acceptTerms", true)}
         />
-        <Text weight="400" style={styles.checkTermsText}>
-          개인정보 처리 방침에 동의합니다.
-        </Text>
-      </View>
-    );
-  }
-  return <View></View>;
+      ) : (
+        <TouchableOpacity
+          style={[styles.checkTermsButton, styles.checkTermsButtonTrue]}
+          onPress={() => setFieldValue("acceptTerms", false)}
+        />
+      )}
+      <Text weight="400" style={styles.checkTermsText}>
+        개인정보 처리 방침에 동의합니다.
+      </Text>
+    </View>
+  );
 }

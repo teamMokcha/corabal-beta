@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   checkTermsButtonTrue: {
-    backgroundColor: "#76B5FF"
+    backgroundColor: "#76B5FF",
+    borderColor: "white"
   },
   checkTermsButtonFalse: {
     borderColor: "#9D9D9D"

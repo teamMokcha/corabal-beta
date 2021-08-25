@@ -6,10 +6,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  signInLink: {
-    marginBottom: 50,
-    fontSize: 14,
-    color: "#757474"
+  eamilContainer: {
+    marginBottom: 41
+  },
+  termsContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 158,
+    marginBottom: 53
   }
 });
 

@@ -4,8 +4,7 @@ import { signingUp } from "@apis/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
-import styles from "./signUp.styles";
-import layoutStyles from "../layout.styles";
+import styles from "../auth.styles";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,7 +28,7 @@ const validationSchema = Yup.object().shape({
 
 export default function SignUp(): ReactElement {
   return (
-    <KeyboardAvoidingView style={layoutStyles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
         <Form
           initialValues={{ email: "", password: "", acceptTerms: false }}
@@ -38,7 +37,7 @@ export default function SignUp(): ReactElement {
           isInitialValid={false}
           onSubmit={(values: any) => signingUp(values.email, values.password)}
         >
-          <View style={layoutStyles.eamilContainer}>
+          <View style={styles.eamilContainer}>
             <Field
               name="email"
               component={FormField}
@@ -62,7 +61,7 @@ export default function SignUp(): ReactElement {
           />
           <FormSubmitButton title="가입하기" />
         </Form>
-        <View style={styles.form}>
+        <View style={styles.termsContainer}>
           <LinkToTerms>{"개인 정보 처리 방침"}</LinkToTerms>
           <LinkToTerms>{"이용 약관"}</LinkToTerms>
         </View>
