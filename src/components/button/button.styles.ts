@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5"
   },
   ButtonGradientRadius: {
+    justifyContent: "center",
     overflow: "hidden",
-    borderRadius: 100,
-    justifyContent: "center"
+    borderRadius: 100
   }
 });
 

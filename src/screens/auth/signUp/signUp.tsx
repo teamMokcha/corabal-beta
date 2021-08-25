@@ -49,8 +49,10 @@ export default function SignUp(): ReactElement {
           <Field component={FormField} name="password" secureTextEntry textContentType="password" />
           <FormSubmitButton title="가입하기" />
         </Form>
-        <LinkToTerm style={styles.form}>{"개인 정보 처리 방침"}</LinkToTerm>
-        <LinkToTerm>{"이용 약관"}</LinkToTerm>
+        <View style={styles.form}>
+          <LinkToTerm>{"개인 정보 처리 방침"}</LinkToTerm>
+          <LinkToTerm>{"이용 약관"}</LinkToTerm>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 114,
-    paddingRight: 8,
-    paddingLeft: 8
+    alignItems: "center",
+    justifyContent: "center"
   },
   inputLabel: {
     marginBottom: 15,
@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     color: "#000000"
   },
   inputBox: {
-    alignItems: "center",
     paddingBottom: 8,
+    width: 312,
     borderBottomWidth: 1,
     borderColor: "#000000"
   },
