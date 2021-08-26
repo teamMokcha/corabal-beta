@@ -2,7 +2,7 @@ import React, { ReactElement, useLayoutEffect, useState } from "react";
 import { TouchableOpacity, View, Image, ScrollView } from "react-native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
-import { ButtonGradient, Text, Modal, ButtonNomal } from "@Components";
+import { ButtonGradient, Text, Modal, ButtonNormal } from "@Components";
 import styles from "./shop.style";
 
 type NavigationProps = {
@@ -96,7 +96,7 @@ const Shop = ({ navigation }: NavigationProps): ReactElement => {
             </Text>
           </Modal.Body>
           <Modal.Footer>
-            <ButtonNomal
+            <ButtonNormal
               onPress={() => setWantToBuy(!wantToBuy)}
               style={styles.modalButton}
               title="취소"

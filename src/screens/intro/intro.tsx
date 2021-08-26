@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { View, ScrollView, Image } from "react-native";
 import styles from "./intro.styles";
-import { ButtonGradient, ButtonNomal } from "@Components";
+import { ButtonGradient, ButtonNormal } from "@Components";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 
@@ -14,8 +14,8 @@ export default function Intro({ navigation }: NavigationProps): ReactElement {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Image style={styles.logo} source={require("@assets/logo.png")} />
-        <ButtonNomal
-          style={styles.buttonNomal}
+        <ButtonNormal
+          style={styles.buttonNormal}
           title="로그인"
           onPress={() => {
             navigation.navigate("Login");

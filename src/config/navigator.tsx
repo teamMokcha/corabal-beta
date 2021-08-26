@@ -31,7 +31,7 @@ const Stack = createNativeStackNavigator<StackNavigatorParams>();
 export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
-      <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
