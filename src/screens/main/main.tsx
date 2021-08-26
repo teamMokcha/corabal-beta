@@ -11,7 +11,6 @@ type NavigationProps = {
 };
 
 export default function Main({ navigation }: NavigationProps): ReactElement {
-  // console.log(navigation);
   useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/display-name
@@ -47,7 +46,7 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
 
   return (
     <View style={styles.container}>
-      <Text>Main page.</Text>
+      <Text>Main</Text>
     </View>
   );
 }
