@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20
   },
-  buttonNomalBorder: {
+  buttonNormalBorder: {
     borderRadius: 100,
     borderWidth: 1,
     borderColor: "#E5E5E5"

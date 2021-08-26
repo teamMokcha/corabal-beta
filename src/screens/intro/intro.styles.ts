@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: 200
   },
-  buttonNomal: {
+  buttonNormal: {
     marginTop: 36,
     width: 294,
     height: 48

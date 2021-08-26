@@ -1,6 +1,6 @@
 import React, { ReactElement, useLayoutEffect, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
-import { ButtonGradient, ButtonNomal, Text, Modal } from "@Components";
+import { ButtonGradient, ButtonNormal, Text, Modal } from "@Components";
 import styles from "./profile.style";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
@@ -90,7 +90,7 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
                 title="계정 유지하기"
                 onPress={() => setIsDeletedAccount(!isDeletedAccount)}
               />
-              <ButtonNomal
+              <ButtonNormal
                 style={styles.deleteButton}
                 title="계정 삭제하기"
                 onPress={() => setIsDeletedAccount(!isDeletedAccount)}
@@ -114,7 +114,7 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
               </Text>
             </Modal.Body>
             <Modal.Footer>
-              <ButtonNomal
+              <ButtonNormal
                 onPress={() => setIsCallingCat(!isCallingCat)}
                 style={styles.modalButton}
                 title="결제하기"

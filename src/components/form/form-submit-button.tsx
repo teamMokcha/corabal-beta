@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import ButtonNomal from "../button/button-nomal";
+import ButtonNormal from "../button/button-normal";
 import ButtonGradient from "../button/button-gradient";
 import { useFormikContext } from "formik";
 import styles from "./forms.styles";
@@ -16,7 +16,7 @@ export default function FormSubmitButton({ title }: FormSubmitButtonProps): Reac
       {isValid ? (
         <ButtonGradient title={title} onPress={() => handleSubmit()} style={styles.button} />
       ) : (
-        <ButtonNomal title={title} style={styles.button} />
+        <ButtonNormal title={title} style={styles.button} />
       )}
     </>
   );
