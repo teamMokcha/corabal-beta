@@ -20,6 +20,7 @@ const FormField = (props: any): ReactElement => {
       </Text>
       <TextInput
         style={styles.inputBox}
+        placeholderTextColor="#C4C4C4"
         placeholder={placeholder}
         onChangeText={text => {
           onChange(name)(text);

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 114,
+    marginTop: 106,
     alignItems: "center",
     justifyContent: "center"
   },

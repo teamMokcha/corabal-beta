@@ -9,12 +9,16 @@ const styles = StyleSheet.create({
   eamilContainer: {
     marginBottom: 41
   },
-  termsContainer: {
+  linkContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 158,
     marginBottom: 53
+  },
+  LinkText: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#757474"
   }
 });
 
