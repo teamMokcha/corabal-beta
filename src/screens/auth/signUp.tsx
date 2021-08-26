@@ -7,6 +7,12 @@ import { Field } from "formik";
 import { validationSchema } from "./validationSchema";
 import styles from "./auth.styles";
 
+type ValueProps = {
+  email: string;
+  password: string;
+  acceptTerms: boolean;
+};
+
 export default function SignUp(): ReactElement {
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -16,9 +22,9 @@ export default function SignUp(): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: any) => signingUp(values.email, values.password)}
+          onSubmit={(values: ValueProps) => signingUp(values.email, values.password)}
         >
-          <View style={styles.eamilContainer}>
+          <View style={styles.emailContainer}>
             <Field
               name="email"
               component={FormField}

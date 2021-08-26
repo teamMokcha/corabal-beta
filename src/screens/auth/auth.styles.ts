@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  eamilContainer: {
+  emailContainer: {
     marginBottom: 41
   },
   linkContainer: {

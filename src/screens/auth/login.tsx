@@ -12,6 +12,11 @@ type NavigationProps = {
   navigation: StackNavigationProp<StackNavigatorParams, "Login">;
 };
 
+type ValueProps = {
+  email: string;
+  password: string;
+};
+
 export default function Login({ navigation }: NavigationProps): ReactElement {
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -21,9 +26,9 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: any) => loggingIn(values.email, values.password)}
+          onSubmit={(values: ValueProps) => loggingIn(values.email, values.password)}
         >
-          <View style={styles.eamilContainer}>
+          <View style={styles.emailContainer}>
             <Field
               name="email"
               component={FormField}
