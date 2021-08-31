@@ -5,7 +5,7 @@ import { StackNavigatorParams } from "@config/navigator";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "../../store/stores";
 import { Form, FormField, FormSubmitButton, Text } from "@Components";
-import { loggingIn } from "@apis/auth-firebase";
+import { loggingIn } from "@services/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";

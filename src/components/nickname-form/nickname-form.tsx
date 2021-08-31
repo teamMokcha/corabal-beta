@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Image, TextInput, KeyboardAvoidingView } from "react-native";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "../../store/stores";
-import { settingNickname } from "@apis/auth-firebase";
+import { settingNickname } from "@services/auth-firebase";
 import Text from "../text/text";
 import NormalButton from "../button/button-normal";
 import GradientButton from "../button/button-gradient";

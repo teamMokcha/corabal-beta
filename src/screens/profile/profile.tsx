@@ -4,7 +4,7 @@ import { ButtonGradient, ButtonNormal, Text, Modal } from "@Components";
 import styles from "./profile.style";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
-import { loggingOut } from "@apis/auth-firebase";
+import { loggingOut } from "@services/auth-firebase";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "../../store/stores";
 
