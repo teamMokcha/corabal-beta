@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from "react";
-import { useState } from "@hookstate/core";
+import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "../store/stores";
 import { firebaseApp } from "@apis/auth-firebase";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
@@ -33,9 +33,9 @@ export type StackNavigatorParams = {
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
 
 export default function Navigator(): ReactElement {
-  const currentUserState = useState(globalUserState);
+  const currentUserState = HSUseState(globalUserState);
   useEffect(() => {
-    firebaseApp.auth().onIdTokenChanged(user => {
+    firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
         currentUserState.set(true);
       } else {
@@ -47,7 +47,7 @@ export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
       {currentUserState.get() === true ? (
-        <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Main" component={DrawerNavigator} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
