@@ -42,9 +42,14 @@ export async function signingUp(
   }
 }
 
-export async function loggingIn(email: string, password: string): Promise<void> {
+export async function loggingIn(email: string, password: string): Promise<any> {
   try {
-    await firebaseApp.auth().signInWithEmailAndPassword(email, password);
+    await firebaseApp
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(credential => {
+        console.log("log-in");
+      });
   } catch (err) {
     console.log("Error : ", err.message);
   }
