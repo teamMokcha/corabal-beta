@@ -4,6 +4,7 @@ import { ButtonGradient, ButtonNormal, Text, Modal } from "@Components";
 import styles from "./profile.style";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
+import { loggingOut } from "@apis/auth-firebase";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;
@@ -68,10 +69,7 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
         >
           비밀번호 재설정
         </Text>
-        <Text
-          style={styles.configScripts}
-          onPress={() => console.log("로그아웃 후 인트로 페이지로 이동")}
-        >
+        <Text style={styles.configScripts} onPress={() => loggingOut()}>
           로그아웃
         </Text>
         <Text style={styles.accountDeletion} onPress={() => setIsDeletedAccount(!isDeletedAccount)}>

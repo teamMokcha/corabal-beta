@@ -22,9 +22,9 @@ export default function SignUp(): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: ValueProps) =>
-            signingUp(values.email, values.password, values.acceptTerms)
-          }
+          onSubmit={(values: ValueProps) => {
+            signingUp(values.email, values.password, values.acceptTerms);
+          }}
         >
           <View style={styles.emailContainer}>
             <Field
