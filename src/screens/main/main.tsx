@@ -1,5 +1,5 @@
 import React, { ReactElement, useLayoutEffect, useState, useRef } from "react";
-import { View, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, Text } from "@Components";
 import styles from "./main.style";
 import { DrawerActions } from "@react-navigation/routers";
@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { FAB } from "react-native-elements";
 import { Divider } from "react-native-elements";
 import CustomCarousel from "./carousel";
+import * as Progress from "react-native-progress";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
@@ -16,7 +17,6 @@ type NavigationProps = {
 
 export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
-
   useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/display-name
@@ -63,17 +63,29 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
           <Image style={styles.mainCatImg} source={require("@assets/main-cat.png")} />
           <View style={{ flex: 1 }}>
             <Text style={styles.statusTitleFont}>이번달 목표 성공일</Text>
+            {/*
             <Image
               style={{ width: "100%", height: 7 }}
               source={require("@assets/progressbar.png")}
+            />
+            */}
+            <Progress.Bar
+              progress={0.5} // console.log((16/31).toFixed(1)) -> 0.5
+              width={210}
+              color="#76A3FF"
+              unfilledColor="#DDDDDD"
+              borderWidth={0}
             />
             <Text style={styles.statusByMonthFont}>
               <Text style={styles.pointFont}>16</Text>/31
             </Text>
             <Text style={styles.statusTitleFont}>이번달 기록</Text>
-            <Image
-              style={{ width: "100%", height: 7 }}
-              source={require("@assets/progressbar.png")}
+            <Progress.Bar
+              progress={0.5}
+              width={210}
+              color="#76A3FF"
+              unfilledColor="#DDDDDD"
+              borderWidth={0}
             />
             <Text style={styles.statusByMonthFont}>
               <Text style={styles.pointFont}>16</Text>/31
