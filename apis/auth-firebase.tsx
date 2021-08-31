@@ -33,7 +33,7 @@ export async function signingUp(
             userInfo: {
               email: email,
               acceptTerms: acceptTerms,
-              nickName: ""
+              nickname: ""
             },
             catStatus: 0,
             goal: 1
@@ -41,13 +41,14 @@ export async function signingUp(
       });
   } catch (err) {
     console.log("Error : ", err.message);
+    return err;
   }
 }
 
 export async function settingNickname(nickname: string): Promise<any> {
   try {
     const user = firebaseApp.auth().currentUser;
-    db.collection("user")
+    db.collection("users")
       .doc(user?.uid)
       .set({ userInfo: { nickname: nickname } }, { merge: true });
   } catch (err) {
@@ -60,6 +61,7 @@ export async function loggingIn(email: string, password: string): Promise<any> {
     await firebaseApp.auth().signInWithEmailAndPassword(email, password);
   } catch (err) {
     console.log("Error : ", err.message);
+    return err;
   }
 }
 

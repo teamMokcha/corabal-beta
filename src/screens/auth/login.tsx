@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react";
 import { KeyboardAvoidingView, ScrollView, View, TouchableOpacity } from "react-native";
-import { Form, FormField, FormSubmitButton, Text } from "@Components";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalUserState } from "../../store/stores";
+import { Form, FormField, FormSubmitButton, Text } from "@Components";
 import { loggingIn } from "@apis/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
@@ -34,6 +36,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Login({ navigation }: NavigationProps): ReactElement {
+  const currentUserState = HSUseState(globalUserState);
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -42,7 +45,10 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: ValueProps) => loggingIn(values.email, values.password)}
+          onSubmit={(values: ValueProps) => {
+            loggingIn(values.email, values.password);
+            currentUserState.loggedIn.set(true);
+          }}
         >
           <View style={styles.emailContainer}>
             <Field

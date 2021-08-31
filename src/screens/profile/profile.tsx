@@ -5,6 +5,8 @@ import styles from "./profile.style";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
 import { loggingOut } from "@apis/auth-firebase";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalUserState } from "../../store/stores";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;
@@ -13,7 +15,7 @@ type NavigationProps = {
 export default function Profile({ navigation }: NavigationProps): ReactElement {
   const [isCallingCat, setIsCallingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
-
+  const currentUserState = HSUseState(globalUserState);
   useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/display-name
@@ -69,7 +71,13 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
         >
           비밀번호 재설정
         </Text>
-        <Text style={styles.configScripts} onPress={() => loggingOut()}>
+        <Text
+          style={styles.configScripts}
+          onPress={() => {
+            loggingOut();
+            currentUserState.loggedIn.set(false);
+          }}
+        >
           로그아웃
         </Text>
         <Text style={styles.accountDeletion} onPress={() => setIsDeletedAccount(!isDeletedAccount)}>

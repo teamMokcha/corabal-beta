@@ -34,19 +34,22 @@ const Stack = createNativeStackNavigator<StackNavigatorParams>();
 
 export default function Navigator(): ReactElement {
   const currentUserState = HSUseState(globalUserState);
+  const userIn = currentUserState.userIn.get();
+  const loggedIn = currentUserState.loggedIn.get();
+  const nickNameIn = currentUserState.nicknameIn.get();
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
-        currentUserState.loggedIn.set(true);
+        currentUserState.userIn.set(true);
       } else {
-        currentUserState.loggedIn.set(false);
+        currentUserState.userIn.set(false);
       }
     });
-  }, [currentUserState]);
+  }, [userIn, loggedIn, nickNameIn]);
 
   return (
     <NavigationContainer theme={initialTheme}>
-      {currentUserState.loggedIn.get() === true && currentUserState.nickname.get() !== "" ? (
+      {(userIn && nickNameIn) || loggedIn ? (
         <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Main" component={DrawerNavigator} />
           <Stack.Screen name="Profile" component={Profile} />
