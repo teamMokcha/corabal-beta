@@ -1,5 +1,5 @@
-import React, { ReactElement, useLayoutEffect, useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import React, { ReactElement, useLayoutEffect, useState, useRef } from "react";
+import { View, Image, TouchableOpacity, Dimensions } from "react-native";
 import { ButtonGradient, Text } from "@Components";
 import styles from "./main.style";
 import { DrawerActions } from "@react-navigation/routers";
@@ -8,18 +8,14 @@ import { DrawerNavigationParams } from "@config/navigator";
 import { ScrollView } from "react-native-gesture-handler";
 import { FAB } from "react-native-elements";
 import { Divider } from "react-native-elements";
-import Goal from "../goal/goal";
+import CustomCarousel from "./carousel";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
 };
 
 export default function Main({ navigation }: NavigationProps): ReactElement {
-  const [isEmpty, setIsEmpty] = useState(true);
-
-  const showGoalModal = () => {
-    console.log("Show Goal Modal.");
-  };
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -158,12 +154,13 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
         </View>
       </View>
       <FAB
-        style={{ width: 52, height: 52 }}
+        style={{ width: 52, height: 52, zIndex: 2 }}
         icon={{ name: "add", color: "white" }}
         placement="right"
         color="black"
         size="large"
       />
+      <CustomCarousel />
     </ScrollView>
   );
 }
