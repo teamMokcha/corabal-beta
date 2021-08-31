@@ -37,16 +37,16 @@ export default function Navigator(): ReactElement {
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
-        currentUserState.set(true);
+        currentUserState.loggedIn.set(true);
       } else {
-        currentUserState.set(false);
+        currentUserState.loggedIn.set(false);
       }
     });
   }, [currentUserState]);
 
   return (
     <NavigationContainer theme={initialTheme}>
-      {currentUserState.get() === true ? (
+      {currentUserState.loggedIn.get() === true && currentUserState.nickname.get() !== "" ? (
         <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Main" component={DrawerNavigator} />
           <Stack.Screen name="Profile" component={Profile} />

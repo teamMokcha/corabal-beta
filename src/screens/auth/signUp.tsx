@@ -1,11 +1,17 @@
 import React, { ReactElement } from "react";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackNavigatorParams } from "@config/navigator";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
 import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { signingUp } from "@apis/auth-firebase";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";
+
+type NavigationProps = {
+  navigation: StackNavigationProp<StackNavigatorParams, "SignUp">;
+};
 
 type ValueProps = {
   email: string;
@@ -33,7 +39,7 @@ const validationSchema = Yup.object().shape({
     .label("acceptTerms")
 });
 
-export default function SignUp(): ReactElement {
+export default function SignUp({ navigation }: NavigationProps): ReactElement {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -44,6 +50,7 @@ export default function SignUp(): ReactElement {
           isInitialValid={false}
           onSubmit={(values: ValueProps) => {
             signingUp(values.email, values.password, values.acceptTerms);
+            navigation.navigate("Nickname");
           }}
         >
           <View style={styles.emailContainer}>
