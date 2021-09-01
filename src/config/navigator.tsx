@@ -1,4 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalUserState } from "@stores/stores";
+import { firebaseApp } from "@services/firebaseApp";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -42,18 +45,37 @@ export type StackNavigatorParams = {
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
 
 export default function Navigator(): ReactElement {
+  const currentUserState = HSUseState(globalUserState);
+  const userIn = currentUserState.userIn.get();
+  const loggedIn = currentUserState.loggedIn.get();
+  const nickNameIn = currentUserState.nicknameIn.get();
+  useEffect(() => {
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        currentUserState.userIn.set(true);
+      } else {
+        currentUserState.userIn.set(false);
+      }
+    });
+  }, [userIn, loggedIn, nickNameIn]);
+
   return (
     <NavigationContainer theme={initialTheme}>
-      <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
-        <Stack.Screen name="Index" component={DrawerNavigator} />
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Nickname" component={Nickname} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Record" component={Record} />
-      </Stack.Navigator>
+      {(userIn && nickNameIn) || loggedIn ? (
+        <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Index" component={DrawerNavigator} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
+          <Stack.Screen name="Record" component={Record} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Intro" component={Intro} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Nickname" component={Nickname} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
