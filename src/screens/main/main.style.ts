@@ -112,6 +112,15 @@ const styles = StyleSheet.create({
   },
   totalCupsFont: {
     fontSize: 24
+  },
+  floatingBtnContainer: {
+    flex: 1,
+    position: "absolute",
+    bottom: 0,
+    right: 24,
+    alignSelf: "flex-end",
+    marginBottom: 48,
+    zIndex: 200
   }
 });
 
