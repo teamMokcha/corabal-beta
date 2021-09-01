@@ -6,7 +6,7 @@ import { NicknameForm } from "@Components";
 import { View } from "react-native";
 
 type NavigationProps = {
-  navigation: StackNavigationProp<StackNavigatorParams, "Intro">;
+  navigation: StackNavigationProp<StackNavigatorParams, "Nickname">;
 };
 
 export default function Nickname({ navigation }: NavigationProps): ReactElement {
