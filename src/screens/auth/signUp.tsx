@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { KeyboardAvoidingView, ScrollView, View, Text } from "react-native";
+import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
@@ -8,7 +8,8 @@ import { signingUp } from "@services/auth-service";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";
-import { Modal } from "@Components";
+
+import ErrorModal from "@services/error-modal";
 
 type NavigationProps = {
   navigation: StackNavigationProp<StackNavigatorParams, "SignUp">;
@@ -44,9 +45,7 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
-        <Modal isVisible>
-          <Text>Hey</Text>
-        </Modal>
+        <ErrorModal />
         <Form
           initialValues={{ email: "", password: "", acceptTerms: false }}
           validationSchema={validationSchema}
