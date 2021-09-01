@@ -92,7 +92,7 @@ const CustomCarousel: React.FC = () => {
           ref={ref}
           data={carouselItems}
           sliderWidth={300}
-          itemWidth={300}
+          itemWidth={280}
           renderItem={renderItem}
           onSnapToItem={(index: number) => setActiveIndex(index)}
         />
