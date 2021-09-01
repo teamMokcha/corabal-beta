@@ -54,7 +54,7 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
     <>
       {/* Floating Button */}
       <View style={styles.floatingBtnContainer}>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Record")}>
           <Image source={require("@assets/btn_record.png")} />
         </TouchableOpacity>
       </View>
