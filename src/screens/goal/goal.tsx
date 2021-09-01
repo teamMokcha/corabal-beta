@@ -1,9 +1,10 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { View, Image, TouchableOpacity, TextInput } from "react-native";
 import { Text, Modal, ButtonGradient } from "@Components";
 import { Input } from "react-native-elements";
 import styles from "./goal.style";
 
+// props 로 넘겨주기
 const Goal = (): ReactElement => {
   return (
     <Modal isVisible={false}>
