@@ -12,6 +12,7 @@ export async function signingUp(email: string, password: string): Promise<void> 
     });
   } catch (err) {
     console.log("Error : ", err.message);
+    // return 값으로 에러를 줌 > 프론트에서 처리?
   }
   // 성공할 경우 메인으로 이동하는 것까지 해야 함
 }
