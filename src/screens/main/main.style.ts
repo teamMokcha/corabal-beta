@@ -112,22 +112,6 @@ const styles = StyleSheet.create({
   },
   totalCupsFont: {
     fontSize: 24
-  },
-  totalRecordContainer: {
-    flexDirection: "row",
-    justifyContent: "center"
-  },
-  eachRecordContainer: {
-    alignItems: "center",
-    marginRight: 17
-  },
-  eachRecordFont: {
-    fontSize: 15,
-    marginTop: -10,
-    marginBottom: -25
-  },
-  eachRecordElseFont: {
-    color: "#C4C4C4"
   }
 });
 

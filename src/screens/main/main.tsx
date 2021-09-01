@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useState, useRef } from "react";
+import React, { ReactElement, useLayoutEffect, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, Text } from "@Components";
 import styles from "./main.style";
@@ -10,6 +10,7 @@ import { FAB } from "react-native-elements";
 import { Divider } from "react-native-elements";
 import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
+import CircleProgress from "./circleProgress";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
@@ -63,12 +64,6 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
           <Image style={styles.mainCatImg} source={require("@assets/main-cat.png")} />
           <View style={{ flex: 1 }}>
             <Text style={styles.statusTitleFont}>이번달 목표 성공일</Text>
-            {/*
-            <Image
-              style={{ width: "100%", height: 7 }}
-              source={require("@assets/progressbar.png")}
-            />
-            */}
             <Progress.Bar
               progress={0.5} // console.log((16/31).toFixed(1)) -> 0.5
               width={210}
@@ -136,34 +131,7 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
         <Text style={styles.totalCupsFont}>
           <Text style={styles.pointFont}>30</Text>잔
         </Text>
-        <View style={styles.totalRecordContainer}>
-          <View style={styles.eachRecordContainer}>
-            <Image style={{ width: 65, height: 65 }} source={require("@assets/shot.png")} />
-            <Text style={styles.eachRecordFont}>샷</Text>
-            <Text>60</Text>
-          </View>
-          <View style={styles.eachRecordContainer}>
-            <Image style={{ width: 65, height: 65 }} source={require("@assets/milk.png")} />
-            <Text style={styles.eachRecordFont}>우유</Text>
-            <Text>
-              20<Text style={styles.eachRecordElseFont}>/30</Text>
-            </Text>
-          </View>
-          <View style={styles.eachRecordContainer}>
-            <Image style={{ width: 65, height: 65 }} source={require("@assets/syrup.png")} />
-            <Text style={styles.eachRecordFont}>시럽</Text>
-            <Text>
-              11<Text style={styles.eachRecordElseFont}>/30</Text>
-            </Text>
-          </View>
-          <View style={styles.eachRecordContainer}>
-            <Image style={{ width: 65, height: 65 }} source={require("@assets/cream.png")} />
-            <Text style={styles.eachRecordFont}>크림</Text>
-            <Text>
-              2<Text style={styles.eachRecordElseFont}>/30</Text>
-            </Text>
-          </View>
-        </View>
+        <CircleProgress />
       </View>
       <FAB
         style={{ width: 52, height: 52, zIndex: 2 }}
