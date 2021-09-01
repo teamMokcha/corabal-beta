@@ -1,10 +1,4 @@
-import firebase from "firebase";
-import "firebase/firestore";
-import apiKeys from "@services/keys";
-
-export const firebaseApp = firebase.initializeApp(apiKeys.firebaseConfig);
-export const db = firebase.firestore();
-console.log("Firebase is initialized.");
+import { firebaseApp, db } from "./firebaseApp";
 
 // 2) error 팝업 띄워주기
 // 3) 비밀번호 재설정하기 (이메일로 보내는 거 실험해보기)

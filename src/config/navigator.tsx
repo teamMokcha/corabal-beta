@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from "react";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "../store/stores";
-import { firebaseApp } from "@services/auth-firebase";
+import { firebaseApp } from "@services/firebaseApp";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Intro, Login, SignUp, Nickname, Main, Profile, Shop, Cups, MonthlyRecord } from "@screens";

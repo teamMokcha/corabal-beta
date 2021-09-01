@@ -4,7 +4,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
 import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
-import { signingUp } from "@services/auth-firebase";
+import { signingUp } from "@services/auth-service";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";
