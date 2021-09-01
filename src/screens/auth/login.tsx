@@ -6,6 +6,8 @@ import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "@stores/stores";
 import { Form, FormField, FormSubmitButton, Text } from "@Components";
 import { loggingIn } from "@services/auth-service";
+import { globalErrorStateDuringAuth } from "@stores/stores";
+import ErrorModal from "../error-modal/error-modal";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";
@@ -37,6 +39,8 @@ const validationSchema = Yup.object().shape({
 
 export default function Login({ navigation }: NavigationProps): ReactElement {
   const currentUserState = HSUseState(globalUserState);
+  const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -46,10 +50,26 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           validateOnMount={false}
           isInitialValid={false}
           onSubmit={(values: ValueProps) => {
-            loggingIn(values.email, values.password);
-            currentUserState.loggedIn.set(true);
+            loggingIn(values.email, values.password) //
+              .then(error => {
+                if (error !== undefined) {
+                  errorStateDuringAuth.modalVisibility.set(true);
+                  errorStateDuringAuth.logInError.set(true);
+                  const errorLog = `${error}`;
+                  if (errorLog.includes("no user")) {
+                    errorStateDuringAuth.logInErrorMessage.set("가입되지 않은 이메일입니다!");
+                  } else if (errorLog.includes("password is invalid")) {
+                    errorStateDuringAuth.logInErrorMessage.set("비밀번호가 틀렸습니다ㅠ!");
+                  } else {
+                    errorStateDuringAuth.logInErrorMessage.set("알 수 없는 오류가 발생했어요!");
+                  }
+                } else {
+                  currentUserState.loggedIn.set(true);
+                }
+              });
           }}
         >
+          <ErrorModal />
           <View style={styles.emailContainer}>
             <Field
               name="email"

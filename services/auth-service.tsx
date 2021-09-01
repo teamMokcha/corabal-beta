@@ -41,6 +41,7 @@ export async function settingNickname(nickname: string): Promise<any> {
       .set({ userInfo: { nickname: nickname } }, { merge: true });
   } catch (err) {
     console.log("Error : ", err.message);
+    return err;
   }
 }
 

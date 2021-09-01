@@ -60,7 +60,12 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
                 if (error !== undefined) {
                   errorStateDuringAuth.modalVisibility.set(true);
                   errorStateDuringAuth.signUpError.set(true);
-                  errorStateDuringAuth.signUpErrorMessage.set("이미 가입된 이메일입니다!");
+                  const errorLog = `${error}`;
+                  if (errorLog.includes("email address is already in use")) {
+                    errorStateDuringAuth.signUpErrorMessage.set("이미 가입된 이메일입니다!");
+                  } else {
+                    errorStateDuringAuth.signUpErrorMessage.set("알 수 없는 오류가 발생했어요!");
+                  }
                 } else {
                   navigation.navigate("Nickname");
                 }
