@@ -6,28 +6,32 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   profile: {
-    marginTop: 112,
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginTop: 155,
+    marginLeft: 142,
+    marginRight: 146
   },
   inputContainer: {
     marginTop: 29,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: 171,
+    marginLeft: 92,
+    marginRight: 96,
+    color: "#000000",
     fontSize: 18,
+    lineHeight: 21,
     borderBottomWidth: 1,
     borderColor: "#000000"
   },
   validationText: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
-    color: "#F15F5F"
+    color: "#565656",
+    fontSize: 12,
+    lineHeight: 17
   },
   button: {
     marginTop: 63,
-    width: 328,
+    marginLeft: 16,
+    marginRight: 16,
     height: 48
   }
 });

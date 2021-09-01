@@ -4,6 +4,9 @@ import { ButtonGradient, ButtonNormal, Text, Modal } from "@Components";
 import styles from "./profile.style";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
+import { loggingOut } from "@services/auth-service";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalUserState } from "@stores/stores";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;
@@ -12,7 +15,7 @@ type NavigationProps = {
 export default function Profile({ navigation }: NavigationProps): ReactElement {
   const [isCallingCat, setIsCallingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
-
+  const currentUserState = HSUseState(globalUserState);
   useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/display-name
@@ -70,7 +73,10 @@ export default function Profile({ navigation }: NavigationProps): ReactElement {
         </Text>
         <Text
           style={styles.configScripts}
-          onPress={() => console.log("로그아웃 후 인트로 페이지로 이동")}
+          onPress={() => {
+            loggingOut();
+            currentUserState.loggedIn.set(false);
+          }}
         >
           로그아웃
         </Text>

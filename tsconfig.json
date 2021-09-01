@@ -17,7 +17,7 @@
       "@config/*": ["src/config/*"],
       "@assets/*": ["src/assets/*"],
       "@stores/*": ["src/stores/*"],
-      "@apis/*": ["apis/*"]
+      "@services/*": ["services/*"]
     }
   },
   "extends": "expo/tsconfig.base"
