@@ -25,6 +25,9 @@ export default function ErrorModal(): ReactElement {
               activeOpacity={0.5}
               onPress={() => {
                 errorStateDuringAuth.modalVisibility.set(false);
+                errorStateDuringAuth.signUpError.set(false);
+                errorStateDuringAuth.logInError.set(false);
+                errorStateDuringAuth.nicknameError.set(false);
               }}
             >
               <Image source={require("@assets/btn_x.png")} style={styles.closeButtonImage} />
@@ -51,6 +54,9 @@ export default function ErrorModal(): ReactElement {
                 style={{ width: 260, maxHeight: 48 }}
                 onPress={() => {
                   errorStateDuringAuth.modalVisibility.set(false);
+                  errorStateDuringAuth.signUpError.set(false);
+                  errorStateDuringAuth.logInError.set(false);
+                  errorStateDuringAuth.nicknameError.set(false);
                 }}
               />
             </View>

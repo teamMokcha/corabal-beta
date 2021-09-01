@@ -1,8 +1,5 @@
 import { firebaseApp, db } from "./firebaseApp";
 
-// 2) error 팝업 띄워주기
-// 3) 비밀번호 재설정하기 (이메일로 보내는 거 실험해보기)
-
 export async function signingUp(
   email: string,
   password: string,

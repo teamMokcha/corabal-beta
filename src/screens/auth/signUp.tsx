@@ -67,6 +67,7 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
                     errorStateDuringAuth.signUpErrorMessage.set("알 수 없는 오류가 발생했어요!");
                   }
                 } else {
+                  errorStateDuringAuth.signUpError.set(false);
                   navigation.navigate("Nickname");
                 }
               });

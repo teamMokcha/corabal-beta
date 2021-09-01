@@ -65,6 +65,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
                   }
                 } else {
                   currentUserState.loggedIn.set(true);
+                  errorStateDuringAuth.logInError.set(false);
                 }
               });
           }}
