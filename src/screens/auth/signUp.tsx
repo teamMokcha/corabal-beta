@@ -1,15 +1,16 @@
 import React, { ReactElement } from "react";
+import { useState as HSUseState } from "@hookstate/core";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
-import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { signingUp } from "@services/auth-service";
+import { globalErrorStateDuringAuth } from "@stores/stores";
+import ErrorModal from "../error-modal/error-modal";
+import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { Field } from "formik";
 import * as Yup from "yup";
 import styles from "./auth.styles";
-
-import ErrorModal from "@services/error-modal";
 
 type NavigationProps = {
   navigation: StackNavigationProp<StackNavigatorParams, "SignUp">;
@@ -42,20 +43,31 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function SignUp({ navigation }: NavigationProps): ReactElement {
+  const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
-        <ErrorModal />
         <Form
           initialValues={{ email: "", password: "", acceptTerms: false }}
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
           onSubmit={(values: ValueProps) => {
-            signingUp(values.email, values.password, values.acceptTerms);
-            navigation.navigate("Nickname");
+            signingUp(values.email, values.password, values.acceptTerms) //
+              .then(error => {
+                // firebase는 성공 시에 undefined를 반환하므로 아래와 같이 에러를 처리
+                if (error !== undefined) {
+                  errorStateDuringAuth.modalVisibility.set(true);
+                  errorStateDuringAuth.signUpError.set(true);
+                  errorStateDuringAuth.signUpErrorMessage.set("이미 가입된 이메일입니다!");
+                } else {
+                  navigation.navigate("Nickname");
+                }
+              });
           }}
         >
+          <ErrorModal />
           <View style={styles.emailContainer}>
             <Field
               name="email"

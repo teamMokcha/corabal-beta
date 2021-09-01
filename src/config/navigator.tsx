@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from "react";
 import { useState as HSUseState } from "@hookstate/core";
-import { globalUserState } from "../store/stores";
+import { globalUserState } from "@stores/stores";
 import { firebaseApp } from "@services/firebaseApp";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

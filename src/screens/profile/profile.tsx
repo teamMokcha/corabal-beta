@@ -6,7 +6,7 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { DrawerNavigationParams } from "@config/navigator";
 import { loggingOut } from "@services/auth-service";
 import { useState as HSUseState } from "@hookstate/core";
-import { globalUserState } from "../../store/stores";
+import { globalUserState } from "@stores/stores";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Profile">;

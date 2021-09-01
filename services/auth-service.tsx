@@ -7,7 +7,7 @@ export async function signingUp(
   email: string,
   password: string,
   acceptTerms: boolean
-): Promise<void> {
+): Promise<any> {
   try {
     await firebaseApp
       .auth()

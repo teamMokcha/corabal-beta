@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, ScrollView, View, TouchableOpacity } from "react-
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { useState as HSUseState } from "@hookstate/core";
-import { globalUserState } from "../../store/stores";
+import { globalUserState } from "@stores/stores";
 import { Form, FormField, FormSubmitButton, Text } from "@Components";
 import { loggingIn } from "@services/auth-service";
 import { Field } from "formik";

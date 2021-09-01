@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Image, TextInput, KeyboardAvoidingView } from "react-native";
 import { useState as HSUseState } from "@hookstate/core";
-import { globalUserState } from "../../store/stores";
+import { globalUserState } from "@stores/stores";
 import { settingNickname } from "@services/auth-service";
 import Text from "../text/text";
 import NormalButton from "../button/button-normal";
