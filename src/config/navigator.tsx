@@ -34,7 +34,7 @@ export default function Navigator(): ReactElement {
     <NavigationContainer theme={initialTheme}>
       {/* <Stack.Navigator initialRouteName="MonthlyRecord" screenOptions={{ headerShown: false }}> */}
       {/* <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}> */}
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
         <Stack.Screen name="Main" component={DrawerNavigator} />
         <Stack.Screen name="Intro" component={Intro} />
