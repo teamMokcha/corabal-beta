@@ -4,7 +4,18 @@ import { globalUserState } from "@stores/stores";
 import { firebaseApp } from "@services/firebaseApp";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Intro, Login, SignUp, Nickname, Main, Profile, Shop, Cups, MonthlyRecord } from "@screens";
+import {
+  Intro,
+  Login,
+  SignUp,
+  Nickname,
+  Main,
+  Profile,
+  Shop,
+  Cups,
+  MonthlyRecord,
+  Record
+} from "@screens";
 import { createDrawerNavigator, DrawerContentScrollView } from "@react-navigation/drawer";
 import { Image, Linking, TouchableOpacity, View } from "react-native";
 import { Text } from "@Components";
@@ -23,11 +34,12 @@ export type StackNavigatorParams = {
   Login: undefined;
   SignUp: undefined;
   Nickname: undefined;
-  Main: undefined;
+  Index: undefined;
   Profile: undefined;
   Shop: undefined;
   Cups: undefined;
   MonthlyRecord: undefined;
+  Record: undefined;
 };
 
 const Stack = createNativeStackNavigator<StackNavigatorParams>();
@@ -50,10 +62,11 @@ export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
       {(userIn && nickNameIn) || loggedIn ? (
-        <Stack.Navigator initialRouteName="MonthlyRecord" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
-          <Stack.Screen name="Main" component={DrawerNavigator} />
+        <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Index" component={DrawerNavigator} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
+          <Stack.Screen name="Record" component={Record} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
@@ -73,6 +86,7 @@ export type DrawerNavigationParams = {
   Profile: undefined;
   Shop: undefined;
   Cups: undefined;
+  Record: undefined;
 };
 
 const Drawer = createDrawerNavigator();
@@ -142,13 +156,15 @@ export const DrawerNavigator = (): ReactElement => {
         drawerType: "front",
         headerTintColor: "white",
         drawerPosition: "right",
-        swipeEnabled: false
+        swipeEnabled: false,
+        headerShown: false
       }}
     >
       <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Shop" component={Shop} />
       <Drawer.Screen name="Cups" component={Cups} />
+      <Drawer.Screen name="Record" component={Record} />
     </Drawer.Navigator>
   );
 };
