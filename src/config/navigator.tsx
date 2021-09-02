@@ -156,7 +156,8 @@ export const DrawerNavigator = (): ReactElement => {
         drawerType: "front",
         headerTintColor: "white",
         drawerPosition: "right",
-        swipeEnabled: false
+        swipeEnabled: false,
+        headerShown: false
       }}
     >
       <Drawer.Screen name="Main" component={Main} />
