@@ -5,5 +5,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 40
+  },
+  recordBackground: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#F5F5F5"
+  },
+  recordContainer: {
+    marginTop: 8,
+    marginLeft: 15,
+    marginRight: 17
   }
 });
