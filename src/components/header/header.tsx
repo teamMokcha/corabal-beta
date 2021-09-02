@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { View, SafeAreaView, Image, StatusBar, TouchableOpacity } from "react-native";
+import { View, Image, StatusBar, TouchableOpacity } from "react-native";
 import styles from "./header.style";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,7 +11,7 @@ type HeaderProps = {
 const Header = ({ back, close }: HeaderProps): ReactElement => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View>
       <StatusBar barStyle="light-content" />
       <View style={{ flexDirection: "row" }}>
         {back && (
@@ -27,7 +27,7 @@ const Header = ({ back, close }: HeaderProps): ReactElement => {
           </View>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

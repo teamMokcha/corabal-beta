@@ -11,3 +11,4 @@ export { default as NicknameForm } from "./nickname-form/nickname-form";
 export { default as LinkToTerms } from "./link-to-terms/link-to-terms";
 export { default as Calendar } from "./calendar/calendar";
 export { default as Header } from "./header/header";
+export { default as MainHeader } from "./header/mainHeader";
