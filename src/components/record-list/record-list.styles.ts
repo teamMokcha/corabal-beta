@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   cupsContainer: {
     flexDirection: "row",
-    marginLeft: 12
+    marginLeft: 8
   },
   cupImage: {
     marginLeft: 8

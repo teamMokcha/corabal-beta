@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   indexContainer: {
     flex: 1,
     flexDirection: "row",
-    marginLeft: 25,
+    paddingLeft: 27,
     alignItems: "center"
   },
   indexIcon: {

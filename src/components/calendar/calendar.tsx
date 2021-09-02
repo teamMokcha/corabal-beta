@@ -48,13 +48,13 @@ export default function Calendar(): ReactElement {
   return (
     <View style={styles.container}>
       <RNCalendar
-        style={{}}
+        style={{ paddingLeft: 27, paddingRight: 25 }}
         theme={{
           arrowColor: "black",
           "stylesheet.calendar.header": {
-            month: { color: "red" },
+            month: { color: "red", fontSize: 24, lineHeight: 35 },
             week: {
-              marginTop: 5,
+              marginTop: 36,
               flexDirection: "row",
               justifyContent: "space-between"
             }
