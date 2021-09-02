@@ -24,7 +24,7 @@ export default function RecordList(): ReactElement {
         }
       ]}
       renderItem={({ item }) => (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
           <View style={styles.dateContainer}>
             <Text weight="700" style={styles.dateTextNumber}>
               {item.date[0]}
@@ -37,10 +37,10 @@ export default function RecordList(): ReactElement {
           <View style={styles.cupsContainer}>
             <Image style={styles.cupImage} source={require("@assets/icon_cup_basic_empty.png")} />
           </View>
-          <TouchableOpacity style={styles.buttonMore}>
+          <View style={styles.buttonMore}>
             <Image source={require("@assets/btn_more.png")} />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       )}
     />
   );
