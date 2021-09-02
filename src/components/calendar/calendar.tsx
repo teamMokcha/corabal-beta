@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { View } from "react-native";
-import { Calendar as RNCalendar, Agenda, LocaleConfig } from "react-native-calendars";
+import { Calendar as RNCalendar, LocaleConfig } from "react-native-calendars";
+import Text from "../text/text";
 import styles from "./calendar.styles";
 
 // 오른쪽 화살을 표시하되, 그 화살이 아래를 향하고 있으면 됨. custom arrow를 만들어서 보여주기
@@ -45,11 +46,11 @@ LocaleConfig.defaultLocale = "KoreanCalendar";
 
 export default function Calendar(): ReactElement {
   return (
-    <View>
+    <View style={styles.container}>
       <RNCalendar
         style={{}}
         theme={{
-          arrowColor: "red",
+          arrowColor: "black",
           "stylesheet.calendar.header": {
             month: { color: "red" },
             week: {
@@ -62,6 +63,16 @@ export default function Calendar(): ReactElement {
         monthFormat={"M월"}
         enableSwipeMonths={true}
       />
+      <View style={styles.indexContainer}>
+        <View style={[styles.indexIcon, styles.indexIconZero]} />
+        <Text style={styles.indexIconText} weight="400">
+          {"0잔"}
+        </Text>
+        <View style={[styles.indexIcon, styles.indexIconMoreThanOne]} />
+        <Text style={styles.indexIconText} weight="400">
+          {"1잔 이상"}
+        </Text>
+      </View>
     </View>
   );
 }

@@ -10,3 +10,4 @@ export { default as FormCheckButton } from "./form/form-check-button";
 export { default as NicknameForm } from "./nickname-form/nickname-form";
 export { default as LinkToTerms } from "./link-to-terms/link-to-terms";
 export { default as Calendar } from "./calendar/calendar";
+export { default as RecordList } from "./record-list/record-list";
