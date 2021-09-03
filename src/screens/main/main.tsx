@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, MainHeader, Text } from "@Components";
 import styles from "./main.style";
@@ -10,6 +10,10 @@ import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
 import CircleProgress from "./circleProgress";
 import Goal from "../goal/goal";
+import { db } from "@services/firebaseApp";
+import firebase from "firebase";
+import { userGoal } from "@stores/stores";
+import { useState as HSUseState } from "@hookstate/core";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
@@ -17,6 +21,20 @@ type NavigationProps = {
 export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isShowingGoal, setIsShowingGoal] = useState(false);
+  const goal = HSUseState(userGoal);
+
+  // email로 고치게 될 경우, 수정해야 함 uid -> email
+  const currentUser = db.collection("users").doc(firebase.auth().currentUser?.uid);
+  useEffect(() => {
+    currentUser
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          goal.set(doc.data()?.goal);
+        } else console.log("No such doc.");
+      })
+      .catch(error => console.log("Error getting document:", error));
+  }, []); // 여기에 global state인 goal 넣기
 
   return (
     <>
@@ -34,8 +52,9 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
             activeOpacity={0.5}
             onPress={() => setIsShowingGoal(true)}
           >
+            {/* 목표 1일 {}잔 */}
             <Text style={styles.aim}>
-              목표 <Text style={styles.pointFont}>1</Text>일 <Text style={styles.pointFont}>1</Text>
+              목표 <Text style={styles.pointFont}>1</Text>일 <Text style={styles.pointFont}> </Text>
               잔
             </Text>
             <Image style={styles.aimNextBtn} source={require("@assets/btn_next.png")} />

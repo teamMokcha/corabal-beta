@@ -4,6 +4,8 @@ import { Text, Modal, ButtonGradient } from "@Components";
 import styles from "./goal.style";
 import { Dispatch, SetStateAction } from "react";
 import RNPickerSelect from "react-native-picker-select";
+import { userGoal } from "@stores/stores";
+import { useState as HSUseState } from "@hookstate/core";
 
 type GoalProps = {
   isShowingGoal: boolean;
@@ -14,13 +16,16 @@ const pickerStyle = {
   inputAndroid: {
     color: "black",
     marginLeft: 26,
-    fontSize: 15
+    fontSize: 25
   }
 };
+
+const radioBtn = [0, 1, 2, 3, 4, 5];
 
 // props 로 넘겨주기
 const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
   const [selectedGoal, setSelectedGoal] = useState(0);
+  const goal = HSUseState(userGoal);
 
   return (
     <Modal isVisible={isShowingGoal}>
@@ -33,34 +38,14 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
         </View>
         <Modal.Body>
           <Text style={styles.bodyFont}>구체적으로 목표를 설정해보세요.</Text>
-          <View style={styles.aimWrapper}>
-            <Text style={styles.aim}>1일</Text>
-            <View style={{ width: 100 }}>
-              <RNPickerSelect
-                placeholder={{}}
-                fixAndroidTouchableBug={true}
-                useNativeAndroidPickerStyle={true}
-                onValueChange={value => setSelectedGoal(value)}
-                value={selectedGoal}
-                items={[
-                  { label: "0", value: 0 },
-                  { label: "1", value: 1 },
-                  { label: "2", value: 2 },
-                  { label: "3", value: 3 },
-                  { label: "4", value: 4 },
-                  { label: "5", value: 5 }
-                ]}
-                style={pickerStyle}
-              />
-            </View>
-            <Text style={styles.aim}>잔</Text>
-          </View>
+          {/* 모달 바꾸기 */}
           <Text style={styles.caution}>* 하루 권장량 1일 1잔</Text>
         </Modal.Body>
         <Modal.Footer>
           <ButtonGradient
             onPress={() => {
               setIsShowingGoal(false);
+              // goal.set(selectedGoal);
             }}
             style={styles.complete}
             title="완료"
