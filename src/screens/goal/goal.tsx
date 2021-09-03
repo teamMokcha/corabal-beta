@@ -38,14 +38,27 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
         </View>
         <Modal.Body>
           <Text style={styles.bodyFont}>구체적으로 목표를 설정해보세요.</Text>
-          {/* 모달 바꾸기 */}
-          <Text style={styles.caution}>* 하루 권장량 1일 1잔</Text>
+          <View style={{ flexDirection: "row" }}>
+            {radioBtn.map(btn => {
+              return (
+                // eslint-disable-next-line react/jsx-key
+                <TouchableOpacity
+                  style={{ alignItems: "center", margin: 5 }}
+                  onPress={() => setSelectedGoal(btn)}
+                >
+                  <Image source={require("@assets/header-profile.png")} />
+                  <Text>{btn}잔</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <Text style={styles.caution}>하루 권장량 1일 1잔</Text>
         </Modal.Body>
         <Modal.Footer>
           <ButtonGradient
             onPress={() => {
               setIsShowingGoal(false);
-              // goal.set(selectedGoal);
+              console.log(selectedGoal);
             }}
             style={styles.complete}
             title="완료"
