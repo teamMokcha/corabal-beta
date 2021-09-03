@@ -10,8 +10,7 @@ import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
 import CircleProgress from "./circleProgress";
 import Goal from "../goal/goal";
-import { db } from "@services/firebaseApp";
-import firebase from "firebase";
+import { db, firebaseApp } from "@services/firebaseApp";
 import { userGoal } from "@stores/stores";
 import { useState as HSUseState } from "@hookstate/core";
 
@@ -22,19 +21,21 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isShowingGoal, setIsShowingGoal] = useState(false);
   const goal = HSUseState(userGoal);
+  const currentUserEmail = firebaseApp.auth().currentUser?.email?.toString();
+  const userRef = db.collection("users").doc(currentUserEmail);
 
-  // email로 고치게 될 경우, 수정해야 함 uid -> email
-  const currentUser = db.collection("users").doc(firebase.auth().currentUser?.uid);
+  // 유저가 설정한 목표를 DB에 저장
   useEffect(() => {
-    currentUser
-      .get()
-      .then(doc => {
-        if (doc.exists) {
-          goal.set(doc.data()?.goal);
-        } else console.log("No such doc.");
-      })
-      .catch(error => console.log("Error getting document:", error));
-  }, []); // 여기에 global state인 goal 넣기
+    userRef
+      .set(
+        {
+          goal: goal.get()
+        },
+        { merge: true }
+      )
+      .then(() => console.log("goal updated!"))
+      .catch(error => console.error("Error updating document: ", error));
+  }, [goal.value]);
 
   return (
     <>
@@ -54,8 +55,8 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
           >
             {/* 목표 1일 {}잔 */}
             <Text style={styles.aim}>
-              목표 <Text style={styles.pointFont}>1</Text>일 <Text style={styles.pointFont}> </Text>
-              잔
+              목표 <Text style={styles.pointFont}>1</Text>일{" "}
+              <Text style={styles.pointFont}>{goal.get()}</Text>잔
             </Text>
             <Image style={styles.aimNextBtn} source={require("@assets/btn_next.png")} />
           </TouchableOpacity>

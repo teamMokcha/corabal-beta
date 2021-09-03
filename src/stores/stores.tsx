@@ -18,7 +18,4 @@ export const globalErrorStateDuringAuth = createState({
   nicknameErrorMessage: ""
 });
 
-// goal을 globalUserState에 넣어서 관리해야 할 것 같지만 일단 따로 만들기.
-export const userGoal = createState({
-  goal: 0
-});
+export const userGoal = createState(1);

@@ -3,21 +3,12 @@ import { View, Image, TouchableOpacity, TextInput } from "react-native";
 import { Text, Modal, ButtonGradient } from "@Components";
 import styles from "./goal.style";
 import { Dispatch, SetStateAction } from "react";
-import RNPickerSelect from "react-native-picker-select";
 import { userGoal } from "@stores/stores";
 import { useState as HSUseState } from "@hookstate/core";
 
 type GoalProps = {
   isShowingGoal: boolean;
   setIsShowingGoal: Dispatch<SetStateAction<boolean>>;
-};
-
-const pickerStyle = {
-  inputAndroid: {
-    color: "black",
-    marginLeft: 26,
-    fontSize: 25
-  }
 };
 
 const radioBtn = [0, 1, 2, 3, 4, 5];
@@ -45,6 +36,7 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
                 <TouchableOpacity
                   style={{ alignItems: "center", margin: 5 }}
                   onPress={() => setSelectedGoal(btn)}
+                  key={btn}
                 >
                   <Image source={require("@assets/header-profile.png")} />
                   <Text>{btn}잔</Text>
@@ -58,7 +50,7 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
           <ButtonGradient
             onPress={() => {
               setIsShowingGoal(false);
-              console.log(selectedGoal);
+              goal.set(selectedGoal);
             }}
             style={styles.complete}
             title="완료"
