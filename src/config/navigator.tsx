@@ -53,8 +53,10 @@ export default function Navigator(): ReactElement {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
         currentUserState.userIn.set(true);
+        currentUserState.userID.set(user.uid);
       } else {
         currentUserState.userIn.set(false);
+        currentUserState.userID.set("");
       }
     });
   }, [userIn, loggedIn, nickNameIn]);
@@ -62,10 +64,10 @@ export default function Navigator(): ReactElement {
   return (
     <NavigationContainer theme={initialTheme}>
       {(userIn && nickNameIn) || loggedIn ? (
-        <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="MonthlyRecord" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
           <Stack.Screen name="Index" component={DrawerNavigator} />
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="MonthlyRecord" component={MonthlyRecord} />
           <Stack.Screen name="Record" component={Record} />
         </Stack.Navigator>
       ) : (
