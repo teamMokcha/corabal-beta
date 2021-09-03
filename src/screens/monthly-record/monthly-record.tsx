@@ -1,7 +1,5 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState } from "react";
 import { View, Button } from "react-native";
-import { useState as HSUseState } from "@hookstate/core";
-import { globalUserState } from "@stores/stores";
 import { addCoffeeRecord } from "@services/coffeeLog-service";
 import { Calendar, RecordList } from "@Components";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -19,15 +17,13 @@ type NavigationProps = {
 // > 커피 잔 수 가져오기
 
 export default function MonthlyRecord({ navigation }: NavigationProps): ReactElement {
-  const currentUserState = HSUseState(globalUserState);
-  const userID = currentUserState.userID.get();
   const [shot, setShot] = useState(0);
   const [base, setBase] = useState("");
-  const [option, setOption] = useState("none");
+  const [option, setOption] = useState(["none"]);
 
   const handleButtonComplete = () => {
     const timestamp = new Date();
-    addCoffeeRecord(userID, shot, base, option, timestamp);
+    addCoffeeRecord(shot, base, option, timestamp);
   };
 
   return (
@@ -37,8 +33,8 @@ export default function MonthlyRecord({ navigation }: NavigationProps): ReactEle
       <Button title="shot3" onPress={() => setShot(3)} />
       <Button title="baseWater" onPress={() => setBase("water")} />
       <Button title="baseMilk" onPress={() => setBase("milk")} />
-      <Button title="optionCream" onPress={() => setOption("cream")} />
-      <Button title="optionSyrup" onPress={() => setOption("syrup")} />
+      <Button title="optionCream" onPress={() => setOption([...option, "cream"])} />
+      <Button title="optionSyrup" onPress={() => setOption([...option, "syrup"])} />
 
       <Button title="complete" onPress={handleButtonComplete} />
 

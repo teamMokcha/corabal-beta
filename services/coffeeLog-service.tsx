@@ -1,23 +1,23 @@
-import { db } from "./firebaseApp";
+import { firebaseApp, db } from "./firebaseApp";
 import firebase from "firebase";
 
 // 1) main의 플로팅 버튼으로 기록 생성
 export async function addCoffeeRecord(
-  userID: string,
   shot: number,
   base: string,
-  option: string,
+  option: string[],
   timestamp: Date
 ): Promise<any> {
   try {
-    const year = timestamp.getUTCFullYear();
-    const month = timestamp.getUTCMonth();
-    const day = timestamp.getUTCDate();
+    const userEmail = firebaseApp.auth().currentUser?.email;
+    const year = timestamp.getFullYear();
+    const month = timestamp.getMonth();
+    const day = timestamp.getDate();
     const databaseRef = db
       .collection("users")
-      .doc(userID)
+      .doc(`${userEmail}`)
       .collection("records")
-      .doc(userID)
+      .doc(`${userEmail}`)
       .collection("years")
       .doc(`${year}`)
       .collection("month")
