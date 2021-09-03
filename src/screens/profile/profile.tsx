@@ -60,7 +60,6 @@ export default function Profile(): ReactElement {
             onPress={() => {
               loggingOut();
               currentUserState.loggedIn.set(false);
-              currentUserState.userID.set("");
             }}
           >
             로그아웃

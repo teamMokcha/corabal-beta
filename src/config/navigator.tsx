@@ -53,8 +53,10 @@ export default function Navigator(): ReactElement {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
         currentUserState.userIn.set(true);
+        currentUserState.userID.set(user.uid);
       } else {
         currentUserState.userIn.set(false);
+        currentUserState.userID.set("");
       }
     });
   }, [userIn, loggedIn, nickNameIn]);
