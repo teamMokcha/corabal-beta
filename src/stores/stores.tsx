@@ -17,3 +17,7 @@ export const globalErrorStateDuringAuth = createState({
   nicknameError: false,
   nicknameErrorMessage: ""
 });
+
+export const globalCoffeeRecordState = createState({
+  recordID: ""
+});
