@@ -25,9 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   aim: {
-    fontSize: 24,
-    marginRight: 13,
-    alignItems: "center"
+    fontSize: 24
   },
   aimInput: {
     fontSize: 24,
@@ -40,6 +38,9 @@ const styles = StyleSheet.create({
   complete: {
     width: 294,
     height: 48
+  },
+  numberPicker: {
+    fontSize: 15
   }
 });
 

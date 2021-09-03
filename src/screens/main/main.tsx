@@ -9,12 +9,14 @@ import { Divider } from "react-native-elements";
 import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
 import CircleProgress from "./circleProgress";
+import Goal from "../goal/goal";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
 };
 export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isShowingGoal, setIsShowingGoal] = useState(false);
 
   return (
     <>
@@ -27,13 +29,18 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
       </View>
       <ScrollView>
         <View style={styles.aimContainer}>
-          <TouchableOpacity style={styles.aimBtnContainer} activeOpacity={0.5}>
+          <TouchableOpacity
+            style={styles.aimBtnContainer}
+            activeOpacity={0.5}
+            onPress={() => setIsShowingGoal(true)}
+          >
             <Text style={styles.aim}>
               목표 <Text style={styles.pointFont}>1</Text>일 <Text style={styles.pointFont}>1</Text>
               잔
             </Text>
             <Image style={styles.aimNextBtn} source={require("@assets/btn_next.png")} />
           </TouchableOpacity>
+          <Goal isShowingGoal={isShowingGoal} setIsShowingGoal={setIsShowingGoal} />
           <View style={styles.mainContainer}>
             <Image style={styles.mainCatImg} source={require("@assets/main-cat.png")} />
             <View style={{ flex: 1 }}>

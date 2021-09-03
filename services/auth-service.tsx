@@ -10,10 +10,9 @@ export async function signingUp(
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        const userID = credential.user?.uid;
-        console.log("It is working");
+        const email = credential.user?.email;
         db.collection("users")
-          .doc(userID)
+          .doc(`${email}`)
           .set({
             userInfo: {
               email: email,
@@ -25,7 +24,7 @@ export async function signingUp(
           });
       });
   } catch (err) {
-    console.log("Error : ", err.message);
+    console.log(`Error: ${err}`);
     return err;
   }
 }
@@ -34,10 +33,10 @@ export async function settingNickname(nickname: string): Promise<any> {
   try {
     const user = firebaseApp.auth().currentUser;
     db.collection("users")
-      .doc(user?.uid)
+      .doc(`${user?.email}`)
       .set({ userInfo: { nickname: nickname } }, { merge: true });
   } catch (err) {
-    console.log("Error : ", err.message);
+    console.log(`Error: ${err}`);
     return err;
   }
 }
@@ -46,7 +45,7 @@ export async function loggingIn(email: string, password: string): Promise<any> {
   try {
     await firebaseApp.auth().signInWithEmailAndPassword(email, password);
   } catch (err) {
-    console.log("Error : ", err.message);
+    console.log(`Error: ${err}`);
     return err;
   }
 }
@@ -55,6 +54,6 @@ export async function loggingOut(): Promise<void> {
   try {
     await firebaseApp.auth().signOut();
   } catch (err) {
-    console.log("Error : ", err.message);
+    console.log(`Error: ${err}`);
   }
 }

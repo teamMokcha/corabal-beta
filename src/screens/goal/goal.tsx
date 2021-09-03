@@ -1,22 +1,35 @@
 import React, { ReactElement, useState } from "react";
 import { View, Image, TouchableOpacity, TextInput } from "react-native";
 import { Text, Modal, ButtonGradient } from "@Components";
-import { Input } from "react-native-elements";
 import styles from "./goal.style";
+import { Dispatch, SetStateAction } from "react";
+import RNPickerSelect from "react-native-picker-select";
+
+type GoalProps = {
+  isShowingGoal: boolean;
+  setIsShowingGoal: Dispatch<SetStateAction<boolean>>;
+};
+
+const pickerStyle = {
+  inputAndroid: {
+    color: "black",
+    marginLeft: 26,
+    fontSize: 15
+  }
+};
 
 const radioBtn = [0, 1, 2, 3, 4, 5];
 
 // props 로 넘겨주기
-const Goal = (): ReactElement => {
-  const [isShowingGoal, setIsShowingGoal] = useState(true);
+const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
   const [selectedGoal, setSelectedGoal] = useState(0);
 
   return (
-    <Modal isVisible={false}>
+    <Modal isVisible={isShowingGoal}>
       <Modal.Container>
         <View style={styles.header}>
           <Text style={styles.headerFont}>목표 설정</Text>
-          <TouchableOpacity activeOpacity={0.5}>
+          <TouchableOpacity activeOpacity={0.5} onPress={() => setIsShowingGoal(false)}>
             <Image style={styles.buttonX} source={require("@assets/btn_x.png")} />
           </TouchableOpacity>
         </View>
