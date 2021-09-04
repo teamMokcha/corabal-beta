@@ -18,4 +18,6 @@ export const globalErrorStateDuringAuth = createState({
   nicknameErrorMessage: ""
 });
 
-export const userGoal = createState(1);
+export const globalGoalState = createState({
+  goal: 0
+});
