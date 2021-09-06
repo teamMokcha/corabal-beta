@@ -43,7 +43,7 @@ export default function ErrorModal(): ReactElement {
                   ? logInErrorMessage
                   : nicknameError
                   ? nicknameErrorMessage
-                  : "알 수 없는 에러가 발생했어요!"}
+                  : "에러를 확인했습니다!"}
               </Text>
             </View>
           </Modal.Body>

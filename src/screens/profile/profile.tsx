@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, ButtonNormal, Text, Modal, Header } from "@Components";
 import styles from "./profile.style";
-import { loggingOut } from "@services/auth-service";
+import { loggingOutWithFirebase } from "@services/auth-service";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "@stores/stores";
 
@@ -58,7 +58,7 @@ export default function Profile(): ReactElement {
           <Text
             style={styles.configScripts}
             onPress={() => {
-              loggingOut();
+              loggingOutWithFirebase();
               currentUserState.loggedIn.set(false);
             }}
           >
