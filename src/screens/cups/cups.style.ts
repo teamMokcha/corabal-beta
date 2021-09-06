@@ -1,41 +1,27 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginLeft: 24
-  },
-  myTumbler: {
+  myCupFont: {
+    marginLeft: 24,
+    marginBottom: 17,
     fontSize: 18,
-    marginTop: 17
+    lineHeight: 21
   },
-  tumblerWrapper: {
+  presentCupContainer: {
     alignItems: "center",
     marginBottom: 40
   },
-  tumblerFonts: {
-    fontSize: 16
-  },
-  presentTumbler: {
-    width: 71,
-    height: 130
-  },
-  myTumblersFonts: {
+  presentCupFont: {
+    marginBottom: 15,
     fontSize: 16,
-    marginLeft: 44
+    lineHeight: 19
   },
-  tumblersWrapper: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    marginTop: 35,
-    marginLeft: 30
-  },
-  tumblers: {
-    width: 41,
-    height: 76,
-    marginRight: 68,
-    marginBottom: 48
+  cupsIHave: {
+    marginLeft: 44,
+    marginBottom: 35,
+    fontWeight: "300",
+    fontSize: 16,
+    lineHeight: 19
   }
 });
 
