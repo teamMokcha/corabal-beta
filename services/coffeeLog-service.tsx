@@ -3,47 +3,56 @@ import firebase from "firebase";
 
 // 1. main의 플로팅 버튼으로 기록 생성
 export async function addNormalCupRecord(
-  userEmail: string,
+  email: string,
   shot: number,
   base: string,
   option: string[],
   timestamp: Date
 ): Promise<any> {
+  const year = timestamp.getFullYear();
+  const month = timestamp.getMonth();
+  const day = timestamp.getDate();
+
   try {
-    const year = timestamp.getFullYear();
-    const month = timestamp.getMonth();
-    const day = timestamp.getDate();
-    const MonthDatabaseRef = db
+    const batch = db.batch();
+
+    const myRecordsMonthDatabaseRef = db
       .collection("users")
-      .doc(`${userEmail}`)
+      .doc(email)
       .collection("records")
-      .doc(`${userEmail}`)
+      .doc(email)
       .collection("years")
       .doc(`${year}`)
       .collection("month")
       .doc(`${month}`);
-    const DayDatabaseRef = MonthDatabaseRef.collection("days").doc(`${day}`);
 
-    await MonthDatabaseRef.set(
-      {
-        recordedCups: firebase.firestore.FieldValue.increment(1)
-      },
-      { merge: true }
-    );
+    // 데이터 존재할 경우를 년도별, 월별, 일별로 나눠서 생각해야 함!
+    // batch.update(myRecordsMonthDatabaseRef, {
+    //   totalNormalCups: firebase.firestore.FieldValue.increment(1)
+    // });
 
-    await DayDatabaseRef.set(
-      { zeroCupRecord: false, recordCounts: firebase.firestore.FieldValue.increment(1) },
-      { merge: true }
-    );
+    // const myRecordsDayCollectionRef = myRecordsMonthDatabaseRef.collection("days").doc(`${day}`);
+    // batch.update(myRecordsDayCollectionRef, {
+    //   "isRecorded.totalRecordCounts": firebase.firestore.FieldValue.increment(1),
+    //   zeroCupRecord: false,
+    //   normalCupRecord: true,
+    //   normalCupRecordCounts: firebase.firestore.FieldValue.increment(1)
+    // });
 
-    await DayDatabaseRef.collection("normalCupRecords")
-      .doc()
-      .set({ shot: shot, base: base, option: option, timestamp: timestamp }, { merge: true });
+    // const myRecordsDailyNormalCupsCollectionRef = myRecordsDayCollectionRef
+    //   .collection("normalCupRecords")
+    //   .doc();
 
-    console.log("Recording succeed");
-  } catch (err) {
-    console.log(err);
-    return err;
+    // batch.set(
+    //   myRecordsDailyNormalCupsCollectionRef,
+    //   { shot: shot, base: base, option: option, timestamp: timestamp },
+    //   { merge: true }
+    // );
+
+    const response = await batch.commit();
+    return [response, null];
+  } catch (error) {
+    return [null, error];
   }
 }
 

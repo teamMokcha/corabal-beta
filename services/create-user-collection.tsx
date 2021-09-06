@@ -55,19 +55,18 @@ export async function createUserCollection(
     batch.set(
       myRecordsDayCollectionRef,
       {
-        isRecorded: { recordFinish: true, timestamp: timestamp },
         isGoalAchieved: false,
         watchedADsCounts: 0,
-        recordCounts: 0,
-        zeroCupRecord: false,
-        normalCupRecords: [{ shot: 0, base: "none", option: "none" }],
+        isRecorded: { recordFinish: false, totalRecordCounts: 0, timestamp: timestamp },
+        zeroCupRecord: { isRecorded: false, RecordCounts: 0 },
+        normalCupRecord: { isRecorded: false, RecordCounts: 0 },
         gottenPoints: {
           totalWatchedAD: 0,
           zeroCupRecord: 0,
           normalCupRecord: 0
         },
         usedPoints: {
-          callingCats: 0,
+          callingCat: 0,
           buyingCups: 0
         }
       },
