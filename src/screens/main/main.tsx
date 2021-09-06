@@ -1,4 +1,4 @@
-import React, { ReactElement, useLayoutEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, MainHeader, Text } from "@Components";
 import styles from "./main.style";
@@ -10,6 +10,9 @@ import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
 import CircleProgress from "./circleProgress";
 import Goal from "../goal/goal";
+import { db, firebaseApp } from "@services/firebaseApp";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalGoalState } from "@stores/stores";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
@@ -17,6 +20,25 @@ type NavigationProps = {
 export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isShowingGoal, setIsShowingGoal] = useState(false);
+  const currentUserEmail = firebaseApp.auth().currentUser?.email?.toString();
+  const userRef = db.collection("users").doc(currentUserEmail);
+  const currentGoalState = HSUseState(globalGoalState);
+  const goal = currentGoalState.goal.get();
+  const [goalFromFirebase, setGoalFromFirebase] = useState(0);
+  // 유저의 DB에서 목표 가져와서 보여주기
+  useEffect(() => {
+    async function getGoal() {
+      await userRef
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            setGoalFromFirebase(doc.get("goal"));
+          } else console.log("No such doc.");
+        })
+        .catch(error => console.error(error));
+    }
+    getGoal();
+  }, [goal]);
 
   return (
     <>
@@ -34,9 +56,10 @@ export default function Main({ navigation }: NavigationProps): ReactElement {
             activeOpacity={0.5}
             onPress={() => setIsShowingGoal(true)}
           >
+            {/* 목표 1일 {}잔 */}
             <Text style={styles.aim}>
-              목표 <Text style={styles.pointFont}>1</Text>일 <Text style={styles.pointFont}>1</Text>
-              잔
+              목표 <Text style={styles.pointFont}>1</Text>일{" "}
+              <Text style={styles.pointFont}>{goalFromFirebase}</Text>잔
             </Text>
             <Image style={styles.aimNextBtn} source={require("@assets/btn_next.png")} />
           </TouchableOpacity>

@@ -1,28 +1,24 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { View, Image, TouchableOpacity, TextInput } from "react-native";
 import { Text, Modal, ButtonGradient } from "@Components";
 import styles from "./goal.style";
 import { Dispatch, SetStateAction } from "react";
-import RNPickerSelect from "react-native-picker-select";
+import { db, firebaseApp } from "@services/firebaseApp";
+import { useState as HSUseState } from "@hookstate/core";
+import { globalGoalState } from "@stores/stores";
 
 type GoalProps = {
   isShowingGoal: boolean;
   setIsShowingGoal: Dispatch<SetStateAction<boolean>>;
 };
 
-const pickerStyle = {
-  inputAndroid: {
-    color: "black",
-    marginLeft: 26,
-    fontSize: 15
-  }
-};
-
 const radioBtn = [0, 1, 2, 3, 4, 5];
-
 // props 로 넘겨주기
 const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
-  const [selectedGoal, setSelectedGoal] = useState(0);
+  const currentUserEmail = firebaseApp.auth().currentUser?.email?.toString();
+  const userRef = db.collection("users").doc(currentUserEmail);
+  const currentGoalState = HSUseState(globalGoalState);
+  const [btn, setBtn] = useState(0);
 
   return (
     <Modal isVisible={isShowingGoal}>
@@ -41,7 +37,8 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
                 // eslint-disable-next-line react/jsx-key
                 <TouchableOpacity
                   style={{ alignItems: "center", margin: 5 }}
-                  onPress={() => setSelectedGoal(btn)}
+                  key={btn}
+                  onPress={() => setBtn(btn)}
                 >
                   <Image source={require("@assets/header-profile.png")} />
                   <Text>{btn}잔</Text>
@@ -54,8 +51,14 @@ const Goal = ({ isShowingGoal, setIsShowingGoal }: GoalProps): ReactElement => {
         <Modal.Footer>
           <ButtonGradient
             onPress={() => {
+              userRef
+                .set({ goal: btn }, { merge: true })
+                .then(() => {
+                  console.log("goal updated!");
+                  currentGoalState.goal.set(btn);
+                })
+                .catch(error => console.error("error occurs:", error));
               setIsShowingGoal(false);
-              console.log(selectedGoal);
             }}
             style={styles.complete}
             title="완료"
