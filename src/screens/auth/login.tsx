@@ -54,7 +54,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
       } else if (errorCode === "auth/user-not-found") {
         errorStateDuringAuth.logInErrorMessage.set("가입되지 않은 이메일입니다.");
       } else if (errorCode === "auth/wrong-password") {
-        errorStateDuringAuth.logInErrorMessage.set("패스워드가 틀렸습니다!");
+        errorStateDuringAuth.logInErrorMessage.set("비밀번호가 틀렸습니다!");
       }
     } else {
       currentUserState.userEmail.set(loggedInUser.email);
