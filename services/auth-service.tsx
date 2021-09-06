@@ -1,43 +1,28 @@
 import { firebaseApp, db } from "./firebaseApp";
 
-export async function signingUp(
-  email: string,
-  password: string,
-  acceptTerms: boolean
-): Promise<any> {
+// 1. DB 모델 생성 > Auth 로직 재확인
+// (기왕이면 password 왜 특수문자 2개 입력해야 하는지도 고치자)
+// 2) Coffee Log 생성 (update로)
+
+// 1) promise로 유저 객체 생성 > 에러 분리 v
+// 2) DB에서 모델 만들기 > 에러 분리
+
+export async function createCredential(email: string, password: string): Promise<any> {
   try {
-    await firebaseApp
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(credential => {
-        const email = credential.user?.email;
-        db.collection("users")
-          .doc(`${email}`)
-          .set({
-            userInfo: {
-              email: email,
-              acceptTerms: acceptTerms,
-              nickname: ""
-            },
-            catStatus: 0,
-            goal: 1
-          });
-      });
-  } catch (err) {
-    console.log(`Error: ${err}`);
-    return err;
+    const credential = await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
+    return [credential, null];
+  } catch (error) {
+    return [null, error];
   }
 }
 
-export async function settingNickname(nickname: string): Promise<any> {
+export async function settingNickname(email: string, nickname: string): Promise<any> {
   try {
-    const user = firebaseApp.auth().currentUser;
-    db.collection("users")
-      .doc(`${user?.email}`)
-      .set({ userInfo: { nickname: nickname } }, { merge: true });
-  } catch (err) {
-    console.log(`Error: ${err}`);
-    return err;
+    const userCollectionRef = db.collection("users").doc(email);
+    const response = await userCollectionRef.update({ userInfo: { nickname: nickname } });
+    return [response, null];
+  } catch (error) {
+    return [null, error];
   }
 }
 

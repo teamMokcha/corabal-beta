@@ -5,7 +5,8 @@ export const globalUserState = createState({
   userIn: false,
   loggedIn: false,
   nickname: "",
-  nicknameIn: false
+  nicknameIn: false,
+  userEmail: ""
 });
 
 export const globalErrorStateDuringAuth = createState({

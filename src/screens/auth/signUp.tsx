@@ -4,8 +4,9 @@ import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { Form, FormField, FormSubmitButton, FormCheckButton, LinkToTerms } from "@Components";
-import { signingUp } from "@services/auth-service";
-import { globalErrorStateDuringAuth } from "@stores/stores";
+import { createUserCollection } from "@services/create-user-collection";
+import { createCredential } from "@services/auth-service";
+import { globalErrorStateDuringAuth, globalUserState } from "@stores/stores";
 import ErrorModal from "../error-modal/error-modal";
 import { PRIVACY_POLICY, TERMS_OF_USE } from "@config/URL";
 import { Field } from "formik";
@@ -44,6 +45,43 @@ const validationSchema = Yup.object().shape({
 
 export default function SignUp({ navigation }: NavigationProps): ReactElement {
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
+  const currentUserState = HSUseState(globalUserState);
+
+  const signingUp = async (email: string, password: string, acceptTerms: boolean) => {
+    const [credential, error] = await createCredential(email, password);
+    if (error) {
+      const errorCode = error.code;
+      errorStateDuringAuth.modalVisibility.set(true);
+      errorStateDuringAuth.signUpError.set(true);
+      if (errorCode === "auth/email-already-in-use") {
+        errorStateDuringAuth.signUpErrorMessage.set("이미 가입된 이메일입니다!");
+      } else if (errorCode === "auth/invalid-email") {
+        errorStateDuringAuth.signUpErrorMessage.set("유효하지 않은 이메일 주소입니다!");
+      } else if (errorCode === "auth/operation-not-allowed") {
+        errorStateDuringAuth.signUpErrorMessage.set("서버에서 이메일 인증을 막았어요!");
+      } else if (errorCode === "auth/weak-password") {
+        errorStateDuringAuth.signUpErrorMessage.set("비밀번호가 너무 약해요!");
+      }
+    } else if (credential) {
+      const authorizedEmail = credential.user.email;
+      const [response, error] = await createUserCollection(
+        authorizedEmail,
+        acceptTerms,
+        new Date()
+      );
+      if (error) {
+        console.error(error);
+      } else {
+        // 성공 시 response는 undefined
+        console.log(response);
+        currentUserState.userEmail.set(authorizedEmail);
+        errorStateDuringAuth.signUpError.set(false);
+        errorStateDuringAuth.signUpErrorMessage.set("");
+        currentUserState.userEmail.set(authorizedEmail);
+        navigation.navigate("Nickname");
+      }
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -54,23 +92,7 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
           validateOnMount={false}
           isInitialValid={false}
           onSubmit={(values: ValueProps) => {
-            signingUp(values.email, values.password, values.acceptTerms) //
-              .then(error => {
-                // firebase는 성공 시에 undefined를 반환하므로 아래와 같이 에러를 처리
-                if (error !== undefined) {
-                  errorStateDuringAuth.modalVisibility.set(true);
-                  errorStateDuringAuth.signUpError.set(true);
-                  const errorLog = `${error}`;
-                  if (errorLog.includes("email address is already in use")) {
-                    errorStateDuringAuth.signUpErrorMessage.set("이미 가입된 이메일입니다!");
-                  } else {
-                    errorStateDuringAuth.signUpErrorMessage.set("알 수 없는 오류가 발생했어요!");
-                  }
-                } else {
-                  errorStateDuringAuth.signUpError.set(false);
-                  navigation.navigate("Nickname");
-                }
-              });
+            signingUp(values.email, values.password, values.acceptTerms);
           }}
         >
           <ErrorModal />

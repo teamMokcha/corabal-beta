@@ -64,8 +64,9 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
                     errorStateDuringAuth.logInErrorMessage.set("알 수 없는 오류가 발생했어요!");
                   }
                 } else {
-                  currentUserState.loggedIn.set(true);
                   errorStateDuringAuth.logInError.set(false);
+                  currentUserState.loggedIn.set(true);
+                  currentUserState.userEmail.set(values.email);
                 }
               });
           }}
