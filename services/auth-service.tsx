@@ -35,7 +35,7 @@ export async function loggingInWithFirebase(email: string, password: string): Pr
   }
 }
 
-export async function loggingOut(): Promise<void> {
+export async function loggingOutWithFirebase(): Promise<void> {
   try {
     await firebaseApp.auth().signOut();
   } catch (err) {
