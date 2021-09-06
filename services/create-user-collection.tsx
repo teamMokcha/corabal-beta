@@ -24,10 +24,10 @@ export async function createUserCollection(
     });
 
     const myCupCollectionRef = userCollectionRef.collection("myCups").doc(email);
-    batch.set(myCupCollectionRef, { totalOwned: 0, currentWearingCupID: "", purchasedCups: [] });
+    batch.set(myCupCollectionRef, { totalOwned: 1, currentWearingCupID: 1, purchasedCups: [] });
 
     const myPointsCollectionRef = userCollectionRef.collection("myPoints").doc(email);
-    batch.set(myPointsCollectionRef, { current: 0, totalGain: 0, totalUsed: 0 });
+    batch.set(myPointsCollectionRef, { current: 10, totalGain: 0, totalUsed: 0 });
 
     const myRecordsMonthCollectionRef = userCollectionRef
       .collection("myRecords")
