@@ -26,12 +26,12 @@ export async function settingNickname(email: string, nickname: string): Promise<
   }
 }
 
-export async function loggingIn(email: string, password: string): Promise<any> {
+export async function loggingInWithFirebase(email: string, password: string): Promise<any> {
   try {
-    await firebaseApp.auth().signInWithEmailAndPassword(email, password);
-  } catch (err) {
-    console.log(`Error: ${err}`);
-    return err;
+    const loggedInUser = await firebaseApp.auth().signInWithEmailAndPassword(email, password);
+    return [loggedInUser, null];
+  } catch (error) {
+    return [null, error];
   }
 }
 

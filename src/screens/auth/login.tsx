@@ -5,7 +5,7 @@ import { StackNavigatorParams } from "@config/navigator";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "@stores/stores";
 import { Form, FormField, FormSubmitButton, Text } from "@Components";
-import { loggingIn } from "@services/auth-service";
+import { loggingInWithFirebase } from "@services/auth-service";
 import { globalErrorStateDuringAuth } from "@stores/stores";
 import ErrorModal from "../error-modal/error-modal";
 import { Field } from "formik";
@@ -41,6 +41,29 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
   const currentUserState = HSUseState(globalUserState);
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
 
+  const loggingIn = async (email: string, password: string) => {
+    const [loggedInUser, error] = await loggingInWithFirebase(email, password);
+    if (error) {
+      const errorCode = error.code;
+      errorStateDuringAuth.modalVisibility.set(true);
+      errorStateDuringAuth.logInError.set(true);
+      if (errorCode === "auth/invalid-email") {
+        errorStateDuringAuth.logInErrorMessage.set("유효하지 않은 이메일입니다.");
+      } else if (errorCode === "auth/user-disabled") {
+        errorStateDuringAuth.logInErrorMessage.set("정지된 계정입니다.");
+      } else if (errorCode === "auth/user-not-found") {
+        errorStateDuringAuth.logInErrorMessage.set("가입되지 않은 이메일입니다.");
+      } else if (errorCode === "auth/wrong-password") {
+        errorStateDuringAuth.logInErrorMessage.set("패스워드가 틀렸습니다!");
+      }
+    } else {
+      currentUserState.userEmail.set(loggedInUser.email);
+      errorStateDuringAuth.logInError.set(false);
+      currentUserState.loggedIn.set(true);
+      currentUserState.userEmail.set(email);
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -49,27 +72,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: ValueProps) => {
-            loggingIn(values.email, values.password) //
-              .then(error => {
-                if (error !== undefined) {
-                  errorStateDuringAuth.modalVisibility.set(true);
-                  errorStateDuringAuth.logInError.set(true);
-                  const errorLog = `${error}`;
-                  if (errorLog.includes("no user")) {
-                    errorStateDuringAuth.logInErrorMessage.set("가입되지 않은 이메일입니다!");
-                  } else if (errorLog.includes("password is invalid")) {
-                    errorStateDuringAuth.logInErrorMessage.set("비밀번호가 틀렸습니다ㅠ!");
-                  } else {
-                    errorStateDuringAuth.logInErrorMessage.set("알 수 없는 오류가 발생했어요!");
-                  }
-                } else {
-                  errorStateDuringAuth.logInError.set(false);
-                  currentUserState.loggedIn.set(true);
-                  currentUserState.userEmail.set(values.email);
-                }
-              });
-          }}
+          onSubmit={(values: ValueProps) => loggingIn(values.email, values.password)}
         >
           <ErrorModal />
           <View style={styles.emailContainer}>
