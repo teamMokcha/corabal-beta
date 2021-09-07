@@ -19,7 +19,7 @@ export async function createCredential(email: string, password: string): Promise
 export async function settingNickname(email: string, nickname: string): Promise<any> {
   try {
     const userCollectionRef = db.collection("users").doc(email);
-    const response = await userCollectionRef.update({ "userInfo.nickname": nickname });
+    const response = await userCollectionRef.update({ nickname: nickname });
     return [response, null];
   } catch (error) {
     return [null, error];
