@@ -10,9 +10,9 @@ import CustomCarousel from "./carousel";
 import * as Progress from "react-native-progress";
 import CircleProgress from "./circleProgress";
 import Goal from "../goal/goal";
-import { db, firebaseApp } from "@services/firebaseApp";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalGoalState } from "@stores/stores";
+import { getGoal } from "@services/setting-goal";
 
 type NavigationProps = {
   navigation: DrawerNavigationProp<DrawerNavigationParams, "Main">;
@@ -20,24 +20,15 @@ type NavigationProps = {
 export default function Main({ navigation }: NavigationProps): ReactElement {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isShowingGoal, setIsShowingGoal] = useState(false);
-  const currentUserEmail = firebaseApp.auth().currentUser?.email?.toString();
-  const userRef = db.collection("users").doc(currentUserEmail);
   const currentGoalState = HSUseState(globalGoalState);
   const goal = currentGoalState.goal.get();
   const [goalFromFirebase, setGoalFromFirebase] = useState(0);
+
   // 유저의 DB에서 목표 가져와서 보여주기
   useEffect(() => {
-    async function getGoal() {
-      await userRef
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            setGoalFromFirebase(doc.get("goal"));
-          } else console.log("No such doc.");
-        })
-        .catch(error => console.error(error));
-    }
-    getGoal();
+    getGoal()
+      .then(response => setGoalFromFirebase(response))
+      .catch(error => console.error(error));
   }, [goal]);
 
   return (
