@@ -6,7 +6,7 @@ export async function createUserCollection(
   timestamp: Date
 ): Promise<any> {
   const year = timestamp.getFullYear();
-  const month = timestamp.getMonth();
+  const month = timestamp.getMonth() + 1;
   const day = timestamp.getDate();
 
   try {
@@ -46,9 +46,9 @@ export async function createUserCollection(
       .collection("logs")
       .doc(email)
       .collection("date")
-      .doc(`${year}-${month + 1}-${day}`);
+      .doc(`${year}-${month}-${day}`);
     batch.set(logCollectionRef, {
-      date: { year: year, month: month + 1, day: day },
+      date: { year: year, month: month, day: day },
       is_recorded: {
         is_zero_cup: false,
         is_normal_cup: false,

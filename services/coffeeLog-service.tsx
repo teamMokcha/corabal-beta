@@ -1,7 +1,7 @@
 import { db } from "./firebaseApp";
 import firebase from "firebase";
 
-// 1. main의 플로팅 버튼으로 기록 생성
+// 1. main의 플로팅 버튼으로 기록 생성 - 5잔 제한 보안 규칙에 추가되어야 함
 export async function addNormalCupRecord(
   email: string,
   shot: number,
@@ -10,47 +10,45 @@ export async function addNormalCupRecord(
   timestamp: Date
 ): Promise<any> {
   const year = timestamp.getFullYear();
-  const month = timestamp.getMonth();
+  const month = timestamp.getMonth() + 1;
   const day = timestamp.getDate();
 
   try {
-    const batch = db.batch();
-
-    const myRecordsMonthDatabaseRef = db
-      .collection("users")
+    const logDocumentationRef = db
+      .collection("logs")
       .doc(email)
-      .collection("records")
-      .doc(email)
-      .collection("years")
-      .doc(`${year}`)
-      .collection("month")
-      .doc(`${month}`);
+      .collection("date")
+      .doc(`${year}-${month}-${day}`);
 
-    // 데이터 존재할 경우를 년도별, 월별, 일별로 나눠서 생각해야 함!
-    // batch.update(myRecordsMonthDatabaseRef, {
-    //   totalNormalCups: firebase.firestore.FieldValue.increment(1)
-    // });
-
-    // const myRecordsDayCollectionRef = myRecordsMonthDatabaseRef.collection("days").doc(`${day}`);
-    // batch.update(myRecordsDayCollectionRef, {
-    //   "isRecorded.totalRecordCounts": firebase.firestore.FieldValue.increment(1),
-    //   zeroCupRecord: false,
-    //   normalCupRecord: true,
-    //   normalCupRecordCounts: firebase.firestore.FieldValue.increment(1)
-    // });
-
-    // const myRecordsDailyNormalCupsCollectionRef = myRecordsDayCollectionRef
-    //   .collection("normalCupRecords")
-    //   .doc();
-
-    // batch.set(
-    //   myRecordsDailyNormalCupsCollectionRef,
-    //   { shot: shot, base: base, option: option, timestamp: timestamp },
-    //   { merge: true }
-    // );
-
-    const response = await batch.commit();
-    return [response, null];
+    const doc = await logDocumentationRef.get();
+    if (doc.exists) {
+      const response = await logDocumentationRef.update({
+        normal_cup_record: firebase.firestore.FieldValue.arrayUnion({
+          shot: shot,
+          base: base,
+          option: option
+        })
+      });
+      return [response, null];
+    } else {
+      const response = await logDocumentationRef.set({
+        date: { year: year, month: month, day: day },
+        is_recorded: {
+          is_zero_cup: false,
+          is_normal_cup: false,
+          timestamp: ""
+        },
+        normal_cup_record: [
+          {
+            shot: shot,
+            base: base,
+            option: option
+          }
+        ],
+        watched_AD_counts: 0
+      });
+      return [response, null];
+    }
   } catch (error) {
     return [null, error];
   }
