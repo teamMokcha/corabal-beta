@@ -57,10 +57,10 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
         errorStateDuringAuth.logInErrorMessage.set("비밀번호가 틀렸습니다!");
       }
     } else {
-      currentUserState.userEmail.set(loggedInUser.email);
       errorStateDuringAuth.logInError.set(false);
+      errorStateDuringAuth.logInErrorMessage.set("");
       currentUserState.loggedIn.set(true);
-      currentUserState.userEmail.set(email);
+      currentUserState.userEmail.set(loggedInUser.email);
     }
   };
 

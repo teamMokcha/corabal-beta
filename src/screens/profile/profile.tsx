@@ -30,7 +30,6 @@ export default function Profile(): ReactElement {
     try {
       await deleteAccountOnFirebase();
       setIsDeletedAccount(!isDeletedAccount);
-      currentUserState.userID.set("");
       currentUserState.userIn.set(false);
       currentUserState.loggedIn.set(false);
       currentUserState.nickname.set("");

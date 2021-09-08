@@ -74,7 +74,6 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
       } else {
         // 성공 시 response는 undefined
         console.log(response);
-        currentUserState.userEmail.set(authorizedEmail);
         errorStateDuringAuth.signUpError.set(false);
         errorStateDuringAuth.signUpErrorMessage.set("");
         currentUserState.userEmail.set(authorizedEmail);
