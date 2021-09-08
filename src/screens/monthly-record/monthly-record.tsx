@@ -26,9 +26,14 @@ export default function MonthlyRecord({ navigation }: NavigationProps): ReactEle
   const [base, setBase] = useState("");
   const [option, setOption] = useState(["none"]);
 
-  const handleButtonComplete = () => {
+  const handleButtonComplete = async () => {
     const timestamp = new Date();
-    addNormalCupRecord(userEmail, shot, base, option, timestamp);
+    const [response, error] = await addNormalCupRecord(userEmail, shot, base, option, timestamp);
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(response, "Adding coffee log succeed");
+    }
   };
 
   const handleButtonZeroComplete = () => {

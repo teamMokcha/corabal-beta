@@ -47,7 +47,7 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
   const currentUserState = HSUseState(globalUserState);
 
-  const signingUp = async (email: string, password: string, acceptTerms: boolean) => {
+  const handleSignUp = async (email: string, password: string, acceptTerms: boolean) => {
     const [credential, error] = await createCredential(email, password);
     if (error) {
       const errorCode = error.code;
@@ -92,7 +92,7 @@ export default function SignUp({ navigation }: NavigationProps): ReactElement {
           validateOnMount={false}
           isInitialValid={false}
           onSubmit={(values: ValueProps) => {
-            signingUp(values.email, values.password, values.acceptTerms);
+            handleSignUp(values.email, values.password, values.acceptTerms);
           }}
         >
           <ErrorModal />

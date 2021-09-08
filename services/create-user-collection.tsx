@@ -14,65 +14,49 @@ export async function createUserCollection(
 
     const userCollectionRef = db.collection("users").doc(email);
     batch.set(userCollectionRef, {
-      userInfo: {
-        email: email,
-        acceptTerms: acceptTerms,
-        nickname: ""
-      },
-      catStatus: 0,
-      goal: 1
+      active: true,
+      email: email,
+      nickname: "",
+      accept_terms: acceptTerms,
+      cat_status: 0,
+      goal: 1,
+      cup_current_wearing: 0,
+      cup_owned: [0],
+      cup_can_buy: [
+        { 1: false },
+        { 2: false },
+        { 3: false },
+        { 4: false },
+        { 5: false },
+        { 6: false },
+        { 7: false },
+        { 8: false },
+        { 9: false }
+      ]
     });
 
-    const myCupCollectionRef = userCollectionRef.collection("myCups").doc(email);
-    batch.set(myCupCollectionRef, { totalOwned: 1, currentWearingCupID: 1, purchasedCups: [] });
-
-    const myPointsCollectionRef = userCollectionRef.collection("myPoints").doc(email);
-    batch.set(myPointsCollectionRef, {
+    const pointCollectionRef = db.collection("points").doc(email);
+    batch.set(pointCollectionRef, {
       current: 10,
-      registrationBonus: 10,
-      totalGain: 0,
-      totalUsed: 0
+      total_gain: { bonus: 10, watched_ADs: 0, normal_cup_records: 0, zero_cup_records: 0 },
+      total_used: { calling_cat: 0, buying_cup: 0 }
     });
 
-    const myRecordsMonthCollectionRef = userCollectionRef
-      .collection("myRecords")
+    const logCollectionRef = db
+      .collection("logs")
       .doc(email)
-      .collection("years")
-      .doc(`${year}`)
-      .collection("month")
-      .doc(`${month}`);
-    batch.set(
-      myRecordsMonthCollectionRef,
-      {
-        recordedDays: 0,
-        goalAchievingDays: 0,
-        totalNormalCups: 0
+      .collection("date")
+      .doc(`${year}-${month + 1}-${day}`);
+    batch.set(logCollectionRef, {
+      date: { year: year, month: month + 1, day: day },
+      is_recorded: {
+        is_zero_cup: false,
+        is_normal_cup: false,
+        timestamp: ""
       },
-      { merge: true }
-    );
-
-    const myRecordsDayCollectionRef = myRecordsMonthCollectionRef.collection("days").doc(`${day}`);
-    batch.set(
-      myRecordsDayCollectionRef,
-      {
-        isRecorded: { recordFinish: true, timestamp: timestamp },
-        isGoalAchieved: false,
-        watchedADsCounts: 0,
-        recordCounts: 0,
-        zeroCupRecord: false,
-        normalCupRecords: [{ shot: 0, base: "none", option: "none" }],
-        gottenPoints: {
-          totalWatchedAD: 0,
-          zeroCupRecord: 0,
-          normalCupRecord: 0
-        },
-        usedPoints: {
-          callingCats: 0,
-          buyingCups: 0
-        }
-      },
-      { merge: true }
-    );
+      normal_cup_record: [],
+      watched_AD_counts: 0
+    });
 
     const response = await batch.commit();
     return [response, null];
