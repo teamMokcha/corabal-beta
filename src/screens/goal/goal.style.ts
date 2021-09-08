@@ -1,46 +1,40 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  header: {
+  headerContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    marginTop: 22,
+    marginLeft: 26,
     marginRight: 24,
-    marginLeft: 24,
-    marginTop: 10
+    marginBottom: 24
   },
-  headerFont: {
-    fontSize: 20
+  headerFontContainer: {
+    marginRight: 94
   },
-  buttonX: {
-    width: 21,
-    height: 21
+  settingGoalFont: {
+    fontSize: 20,
+    lineHeight: 29,
+    marginBottom: 8
   },
-  bodyFont: {
-    fontSize: 15
+  settingGoalDescriptionFont: {
+    fontSize: 15,
+    lineHeight: 21.72
   },
-  aimWrapper: {
+  bodyContainer: {
+    marginLeft: 26,
+    marginRight: 254
+  },
+  radioBtnContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center"
   },
-  aim: {
-    fontSize: 24
+  radioBtnFont: {
+    color: "#757474",
+    fontWeight: "400"
   },
-  aimInput: {
-    fontSize: 24,
-    marginRight: 6
-  },
-  caution: {
-    fontSize: 13,
-    color: "#F15F5F"
-  },
-  complete: {
+  confirmBtn: {
     width: 294,
     height: 48
-  },
-  numberPicker: {
-    fontSize: 15
   }
 });
 
