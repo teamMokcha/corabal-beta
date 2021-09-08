@@ -46,9 +46,9 @@ export async function createUserCollection(
       .collection("logs")
       .doc(email)
       .collection("date")
-      .doc(`${year}-${month}-${day}`);
+      .doc(`${year}-${month + 1}-${day}`);
     batch.set(logCollectionRef, {
-      date: { year: year, month: month, day: day },
+      date: { year: year, month: month + 1, day: day },
       is_recorded: {
         is_zero_cup: false,
         is_normal_cup: false,

@@ -5,7 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "@config/navigator";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState, globalErrorStateDuringAuth } from "@stores/stores";
-import { settingNickname } from "@services/auth-service";
+import { setNickname } from "@services/auth-service";
 import styles from "./nickname.styles";
 
 type NavigationProps = {
@@ -18,10 +18,7 @@ export default function Nickname({ navigation }: NavigationProps): ReactElement 
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
 
   const handleSettingNickname = async () => {
-    const [response, error] = await settingNickname(
-      currentUserState.userEmail.get(),
-      nicknameValue
-    );
+    const [response, error] = await setNickname(currentUserState.userEmail.get(), nicknameValue);
     if (error) {
       errorStateDuringAuth.modalVisibility.set(true);
       errorStateDuringAuth.nicknameError.set(true);

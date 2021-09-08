@@ -5,7 +5,7 @@ import { StackNavigatorParams } from "@config/navigator";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "@stores/stores";
 import { Form, FormField, FormSubmitButton, Text } from "@Components";
-import { loggingInWithFirebase } from "@services/auth-service";
+import { logInWithFirebase } from "@services/auth-service";
 import { globalErrorStateDuringAuth } from "@stores/stores";
 import ErrorModal from "../error-modal/error-modal";
 import { Field } from "formik";
@@ -41,8 +41,8 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
   const currentUserState = HSUseState(globalUserState);
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
 
-  const loggingIn = async (email: string, password: string) => {
-    const [loggedInUser, error] = await loggingInWithFirebase(email, password);
+  const handleLogIn = async (email: string, password: string) => {
+    const [loggedInUser, error] = await logInWithFirebase(email, password);
     if (error) {
       const errorCode = error.code;
       errorStateDuringAuth.modalVisibility.set(true);
@@ -72,7 +72,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           validationSchema={validationSchema}
           validateOnMount={false}
           isInitialValid={false}
-          onSubmit={(values: ValueProps) => loggingIn(values.email, values.password)}
+          onSubmit={(values: ValueProps) => handleLogIn(values.email, values.password)}
         >
           <ErrorModal />
           <View style={styles.emailContainer}>
@@ -93,7 +93,6 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
           />
           <FormSubmitButton title="로그인" />
         </Form>
-
         <TouchableOpacity
           style={[styles.linkContainer, { marginTop: 216 }]}
           onPress={() => {

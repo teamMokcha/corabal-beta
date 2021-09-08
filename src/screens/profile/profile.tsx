@@ -2,7 +2,11 @@ import React, { ReactElement, useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { ButtonGradient, ButtonNormal, Text, Modal, Header } from "@Components";
 import styles from "./profile.style";
-import { loggingOutWithFirebase } from "@services/auth-service";
+import {
+  logOutWithFirebase,
+  sendPasswordRestEmail,
+  deleteAccountOnFirebase
+} from "@services/auth-service";
 import { useState as HSUseState } from "@hookstate/core";
 import { globalUserState } from "@stores/stores";
 
@@ -10,6 +14,32 @@ export default function Profile(): ReactElement {
   const [isCallingCat, setIsCallingCat] = useState(false);
   const [isDeletedAccount, setIsDeletedAccount] = useState(false);
   const currentUserState = HSUseState(globalUserState);
+  const email = currentUserState.userEmail.get();
+
+  const handlePasswordReset = async () => {
+    try {
+      await sendPasswordRestEmail(email);
+      console.log("비밀번호 재설정 링크 보내기 성공");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    // (firestore DB에서도 어떻게 지울지 생각해야 함. 차후 추가하기)
+    try {
+      await deleteAccountOnFirebase();
+      setIsDeletedAccount(!isDeletedAccount);
+      currentUserState.userID.set("");
+      currentUserState.userIn.set(false);
+      currentUserState.loggedIn.set(false);
+      currentUserState.nickname.set("");
+      currentUserState.nicknameIn.set(false);
+      currentUserState.userEmail.set("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -49,16 +79,13 @@ export default function Profile(): ReactElement {
           </View>
         </View>
         <View style={styles.config}>
-          <Text
-            style={styles.configScripts}
-            onPress={() => console.log("비밀번호 설정하는 페이지로 이동")}
-          >
-            비밀번호 재설정
-          </Text>
+          <TouchableOpacity onPress={() => handlePasswordReset()}>
+            <Text style={styles.configScripts}>비밀번호 재설정</Text>
+          </TouchableOpacity>
           <Text
             style={styles.configScripts}
             onPress={() => {
-              loggingOutWithFirebase();
+              logOutWithFirebase();
               currentUserState.loggedIn.set(false);
             }}
           >
@@ -86,7 +113,7 @@ export default function Profile(): ReactElement {
                 <ButtonNormal
                   style={styles.deleteButton}
                   title="계정 삭제하기"
-                  onPress={() => setIsDeletedAccount(!isDeletedAccount)}
+                  onPress={() => handleDeleteAccount()}
                 />
               </Modal.Footer>
             </Modal.Container>
