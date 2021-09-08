@@ -42,7 +42,7 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
   const errorStateDuringAuth = HSUseState(globalErrorStateDuringAuth);
 
   const handleLogIn = async (email: string, password: string) => {
-    const [loggedInUser, error] = await logInWithFirebase(email, password);
+    const [response, error] = await logInWithFirebase(email, password);
     if (error) {
       const errorCode = error.code;
       errorStateDuringAuth.modalVisibility.set(true);
@@ -57,10 +57,10 @@ export default function Login({ navigation }: NavigationProps): ReactElement {
         errorStateDuringAuth.logInErrorMessage.set("비밀번호가 틀렸습니다!");
       }
     } else {
+      console.log(response);
       errorStateDuringAuth.logInError.set(false);
       errorStateDuringAuth.logInErrorMessage.set("");
       currentUserState.loggedIn.set(true);
-      currentUserState.userEmail.set(loggedInUser.email);
     }
   };
 

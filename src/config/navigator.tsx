@@ -51,8 +51,9 @@ export default function Navigator(): ReactElement {
   const nickNameIn = currentUserState.nicknameIn.get();
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged(user => {
-      if (user) {
+      if (user && user.email !== null) {
         currentUserState.userIn.set(true);
+        currentUserState.userEmail.set(user.email);
       } else {
         currentUserState.userIn.set(false);
       }
