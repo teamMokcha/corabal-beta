@@ -16,17 +16,17 @@ export async function createCredential(email: string, password: string): Promise
   }
 }
 
-export async function settingNickname(email: string, nickname: string): Promise<any> {
+export async function setNickname(email: string, nickname: string): Promise<any> {
   try {
     const userCollectionRef = db.collection("users").doc(email);
-    const response = await userCollectionRef.update({ "userInfo.nickname": nickname });
+    const response = await userCollectionRef.update({ nickname: nickname });
     return [response, null];
   } catch (error) {
     return [null, error];
   }
 }
 
-export async function loggingInWithFirebase(email: string, password: string): Promise<any> {
+export async function logInWithFirebase(email: string, password: string): Promise<any> {
   try {
     const loggedInUser = await firebaseApp.auth().signInWithEmailAndPassword(email, password);
     return [loggedInUser, null];
@@ -35,10 +35,27 @@ export async function loggingInWithFirebase(email: string, password: string): Pr
   }
 }
 
-export async function loggingOutWithFirebase(): Promise<void> {
+export async function logOutWithFirebase(): Promise<void> {
   try {
     await firebaseApp.auth().signOut();
-  } catch (err) {
-    console.log(`Error: ${err}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function sendPasswordRestEmail(email: string): Promise<void> {
+  try {
+    await firebaseApp.auth().sendPasswordResetEmail(email);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteAccountOnFirebase(): Promise<void> {
+  try {
+    const user = firebaseApp.auth().currentUser;
+    await user?.delete();
+  } catch (error) {
+    console.log(error);
   }
 }
