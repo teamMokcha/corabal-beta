@@ -1,8 +1,8 @@
 ---
 name: "[FEAT]"
 about: 기능 구현을 위한 이슈 등록
-title: "[FEAT] 기능 구현 #1"
-labels: feat
+title: "[FEAT] 기능 구현"
+labels: 'feat :star2:'
 assignees: ''
 
 ---
