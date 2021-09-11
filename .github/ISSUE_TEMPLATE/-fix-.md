@@ -1,6 +1,6 @@
 ---
 name: "[FIX]"
-about: Describe this issue template's purpose here.
+about: 오류 수정을 위한 이슈 등록
 title: "[FIX] 오류 수정"
 labels: 'fix :toolbox:'
 assignees: ''
