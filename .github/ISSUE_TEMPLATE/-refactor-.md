@@ -1,6 +1,6 @@
 ---
 name: "[REFACTOR]"
-about: Describe this issue template's purpose here.
+about: 리팩토링을 위한 이슈 등록
 title: "[REFACTOR] 리팩토링"
 labels: 'refactor :fire:'
 assignees: ''
